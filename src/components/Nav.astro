@@ -4,8 +4,8 @@ import Logo from "./Logo.astro";
 const links = [
   { href: "/#services", label: "What we do" },
   { href: "/#work", label: "The work" },
-  { href: "/#process", label: "How it works" },
-  { href: "/#portal", label: "The portal" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
@@ -21,7 +21,7 @@ const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
 
     <div class="nav-actions">
       <a class="nav-login" href={PORTAL_URL} rel="noopener">Client login</a>
-      <a class="btn btn-primary nav-cta" href="/#contact">
+      <a class="btn btn-primary nav-cta" href="/contact">
         Book a call
         <span class="arrow" aria-hidden="true">→</span>
       </a>
@@ -41,7 +41,7 @@ const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
     <nav class="wrap" aria-label="Mobile">
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
       <a href={PORTAL_URL} rel="noopener">Client login</a>
-      <a class="btn btn-primary" href="/#contact">
+      <a class="btn btn-primary" href="/contact">
         Book a call
         <span class="arrow" aria-hidden="true">→</span>
       </a>

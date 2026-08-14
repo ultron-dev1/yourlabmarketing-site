@@ -1,0 +1,233 @@
+---
+import Base from "../layouts/Base.astro";
+
+const EMAIL = "hello@yourlabmarketing.com";
+const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
+
+const faqs = [
+  {
+    q: "What do you need from us to get started?",
+    a: "A paper or preprint is the easiest starting point, but a description of what your lab is working on is enough for the first call. We'll ask for access to publications, figures, and anything else as we go.",
+  },
+  {
+    q: "How much does it cost?",
+    a: "It depends on how many platforms you're on and how often you want to publish, so we don't quote a number until we understand that. You'll get a straight answer after the first call, not a generic package price.",
+  },
+  {
+    q: "Who actually writes the posts?",
+    a: "A person, every time. Nothing is generated and shipped without someone reading the source material and the draft first.",
+  },
+  {
+    q: "Can we see drafts before anything goes out?",
+    a: "Yes — that's the whole point of the client portal. Every post is approved by your lab before it publishes.",
+  },
+];
+---
+
+<Base
+  title="Contact — Your Lab Marketing"
+  description="Tell us what your lab is working on. A short call, no deck — we'll tell you honestly whether we're the right fit."
+>
+  <!-- ================= HERO ================= -->
+  <section class="section contact-hero">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">Get in touch</span>
+        <h1>Tell us what your lab is working on.</h1>
+        <p class="lede measure">
+          A short call, no deck. You describe the work and how much of it is
+          getting out; we tell you honestly whether we're the right fit and
+          what it would cost.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT GRID ================= -->
+  <section class="section contact-main">
+    <div class="wrap contact-grid">
+      <div class="contact-card reveal">
+        <span class="cc-label">Email the studio</span>
+        <a class="cc-email" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+        <p class="cc-note">
+          Write in directly — a paper, a link to your lab site, or just a
+          sentence about what you're working on. A person reads every
+          message.
+        </p>
+        <a class="btn btn-primary cc-btn" href={`mailto:${EMAIL}`}>
+          Open a new email
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="contact-card reveal" style="--delay:100ms">
+        <span class="cc-label">Already a client?</span>
+        <p class="cc-note cc-note-lg">
+          Approvals, requests, and uploads all live in your lab's portal —
+          you don't need to email us for any of that.
+        </p>
+        <a class="btn btn-ghost cc-btn" href={PORTAL_URL} rel="noopener">
+          Go to the client portal
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section faq">
+    <div class="wrap faq-grid">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Before you write in</span>
+        <h2>A few things people usually ask.</h2>
+      </div>
+
+      <dl class="faq-list">
+        {
+          faqs.map((f, i) => (
+            <div class="faq-item reveal" style={`--delay:${i * 70}ms`}>
+              <dt>{f.q}</dt>
+              <dd>{f.a}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ================= HERO ================= */
+
+  .contact-hero {
+    padding-block: clamp(3rem, 7vw, 5.5rem) clamp(2rem, 4vw, 3rem);
+  }
+
+  .contact-hero h1 {
+    max-width: 22ch;
+    margin-block: 0 1.5rem;
+  }
+
+  /* ================= CONTACT GRID ================= */
+
+  .contact-main {
+    padding-block: 0 clamp(3rem, 6vw, 5rem);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    gap: 1.25rem;
+  }
+
+  .contact-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cc-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .cc-email {
+    font-family: var(--serif);
+    font-size: clamp(1.0625rem, 4vw, 1.75rem);
+    color: var(--ink);
+    margin-bottom: 1rem;
+    word-break: break-word;
+    transition: color 0.2s;
+  }
+
+  .cc-email:hover {
+    color: var(--accent);
+  }
+
+  .cc-note {
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    line-height: 1.65;
+    margin-bottom: 1.75rem;
+  }
+
+  .cc-note-lg {
+    margin-top: 0.125rem;
+  }
+
+  .cc-btn {
+    margin-top: auto;
+  }
+
+  /* ================= FAQ ================= */
+
+  .faq {
+    background: var(--surface-2);
+    border-top: 1px solid var(--line);
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+
+  .sec-head h2 {
+    margin-bottom: 0;
+  }
+
+  .faq-list {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .faq-item {
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .faq-item:first-child {
+    padding-top: 0;
+  }
+
+  .faq-item:last-child {
+    border-bottom: 0;
+  }
+
+  .faq-item dt {
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    color: var(--ink);
+    margin-bottom: 0.625rem;
+  }
+
+  .faq-item dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    line-height: 1.65;
+    max-width: 56ch;
+  }
+
+  /* ================= responsive ================= */
+
+  @media (max-width: 860px) {
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sec-head {
+      margin-bottom: 0.5rem;
+    }
+  }
+</style>

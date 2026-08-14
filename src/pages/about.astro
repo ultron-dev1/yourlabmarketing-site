@@ -1,0 +1,257 @@
+---
+import Base from "../layouts/Base.astro";
+import Wellmark from "../components/Wellmark.astro";
+
+const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
+
+const principles = [
+  {
+    n: "01",
+    title: "Read the paper, not the abstract",
+    body: "The methods and the limitations are where a post goes wrong if nobody reads them. We read them, every time, before we write a word.",
+  },
+  {
+    n: "02",
+    title: "Nothing overclaims",
+    body: "A result gets described the way the paper describes it. If the finding is preliminary, the post says preliminary. Your name is on it, not ours.",
+  },
+  {
+    n: "03",
+    title: "Written for the platform, not translated",
+    body: "A LinkedIn post and an X thread are different pieces of writing, not one caption cut three ways. Each gets written for how people actually read there.",
+  },
+  {
+    n: "04",
+    title: "You see it before anyone else does",
+    body: "Every draft goes through your portal first. Nothing reaches a feed without someone from your lab approving it.",
+  },
+];
+---
+
+<Base
+  title="About — Your Lab Marketing"
+  description="Your Lab Marketing is a small studio doing social media for research labs. Here's how we work and why."
+>
+  <!-- ================= HERO ================= -->
+  <section class="section about-hero">
+    <div class="wrap about-hero-inner">
+      <div class="reveal">
+        <span class="eyebrow">About</span>
+        <h1>A studio built for one kind of client.</h1>
+        <p class="lede measure">
+          We only work with research labs. That's not a niche we fell into —
+          it's the reason the studio exists. Most agencies write about a
+          finding the way they'd write about a product launch. We read the
+          paper first.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STORY ================= -->
+  <section class="section story">
+    <div class="wrap story-grid">
+      <div class="story-copy reveal">
+        <span class="eyebrow">Why this exists</span>
+        <h2>Good writing about science is a specific skill.</h2>
+        <p class="lede measure-sm">
+          It isn't press-release writing, and it isn't science journalism
+          either — it's closer to being a careful co-author who happens to
+          write for LinkedIn instead of a journal. That skill is rare, and
+          almost no lab has the time to develop it in-house.
+        </p>
+        <p class="measure-sm story-p">
+          Your Lab Marketing is run by Anthony Courey. The studio is
+          deliberately small: every post is read by a person before your lab
+          ever sees it — nothing is generated and shipped without a read.
+        </p>
+      </div>
+
+      <div class="story-mark reveal" style="--delay:120ms" aria-hidden="true">
+        <Wellmark text="YLM" size={220} tone="tile" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRINCIPLES ================= -->
+  <section class="section principles">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">How we work</span>
+        <h2>Four things we don't compromise on.</h2>
+      </div>
+
+      <div class="pr-grid">
+        {
+          principles.map((p, i) => (
+            <article class="pr card reveal" style={`--delay:${i * 80}ms`}>
+              <span class="pr-n">{p.n}</span>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="section about-cta on-navy">
+    <div class="wrap about-cta-inner">
+      <div class="reveal">
+        <span class="eyebrow">Get started</span>
+        <h2>See if we're a fit.</h2>
+        <p class="lede measure">
+          A short call, no deck. You describe the work and how much of it is
+          getting out; we tell you honestly whether we're the right fit.
+        </p>
+      </div>
+      <div class="about-cta-actions reveal" style="--delay:100ms">
+        <a class="btn btn-primary" href="/contact">
+          Get in touch
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn-ghost" href={PORTAL_URL} rel="noopener">
+          Client login
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ================= HERO ================= */
+
+  .about-hero {
+    padding-block: clamp(3rem, 7vw, 5.5rem) clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .about-hero-inner h1 {
+    max-width: 20ch;
+    margin-block: 0 1.5rem;
+  }
+
+  /* ================= STORY ================= */
+
+  .story {
+    background: var(--surface-2);
+    border-block: 1px solid var(--line);
+  }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .story-copy h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .story-p {
+    margin-top: 1.25rem;
+    color: var(--ink-2);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .story-mark {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ================= PRINCIPLES ================= */
+
+  .sec-head {
+    max-width: 44rem;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .sec-head h2 {
+    margin-bottom: 0;
+  }
+
+  .pr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+    gap: 1.25rem;
+  }
+
+  .pr {
+    padding: 1.75rem 1.5rem;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s,
+      border-color 0.3s;
+  }
+
+  .pr:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--accent-line);
+  }
+
+  .pr-n {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .pr h3 {
+    margin-bottom: 0.75rem;
+  }
+
+  .pr p {
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    line-height: 1.65;
+  }
+
+  /* ================= CTA ================= */
+
+  .about-cta-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: end;
+  }
+
+  .about-cta-inner h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .about-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-end;
+  }
+
+  /* ================= responsive ================= */
+
+  @media (max-width: 900px) {
+    .story-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .story-mark {
+      order: -1;
+    }
+
+    .about-cta-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .about-cta-actions {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pr:hover {
+      transform: none;
+    }
+  }
+</style>
