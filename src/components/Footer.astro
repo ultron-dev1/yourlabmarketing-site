@@ -1,0 +1,141 @@
+---
+import Logo from "./Logo.astro";
+
+const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
+const EMAIL = "hello@yourlabmarketing.com";
+const year = new Date().getFullYear();
+
+const columns = [
+  {
+    title: "Studio",
+    links: [
+      { href: "/#services", label: "What we do" },
+      { href: "/#work", label: "The work" },
+      { href: "/#process", label: "How it works" },
+      { href: "/#portal", label: "The portal" },
+    ],
+  },
+  {
+    title: "Get started",
+    links: [
+      { href: "/#contact", label: "Book a call" },
+      { href: `mailto:${EMAIL}`, label: "Email the studio" },
+      { href: PORTAL_URL, label: "Client login", external: true },
+    ],
+  },
+];
+---
+
+<footer class="footer on-navy">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <Logo />
+        <p class="footer-blurb">
+          Social media for research labs. We read the paper, write the post, and
+          hand you the approve button.
+        </p>
+      </div>
+
+      {
+        columns.map((col) => (
+          <nav class="footer-col" aria-label={col.title}>
+            <h2 class="footer-col-title">{col.title}</h2>
+            <ul>
+              {col.links.map((l) => (
+                <li>
+                  <a
+                    href={l.href}
+                    {...("external" in l && l.external
+                      ? { rel: "noopener" }
+                      : {})}
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {year} Your Lab Marketing</p>
+      <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--navy-line);
+    padding-block: clamp(3rem, 6vw, 4.5rem) 2rem;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: minmax(min(340px, 100%), 1.4fr) repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+
+  .footer-blurb {
+    margin-top: 1.25rem;
+    max-width: 34ch;
+    font-size: 0.9375rem;
+    color: var(--navy-ink-2);
+    line-height: 1.65;
+  }
+
+  .footer-col-title {
+    font-family: var(--sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--navy-ink-2);
+    margin-bottom: 1.125rem;
+  }
+
+  .footer-col ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-col a {
+    font-size: 0.9375rem;
+    color: var(--navy-ink);
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover {
+    color: #fff;
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--navy-line);
+    font-size: 0.875rem;
+    color: var(--navy-ink-2);
+  }
+
+  .footer-bottom a:hover {
+    color: #fff;
+  }
+
+  @media (max-width: 720px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

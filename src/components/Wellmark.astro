@@ -1,0 +1,66 @@
+---
+/**
+ * The mark: a letter spelled in microplate wells.
+ *
+ * Unfilled wells stay on the plate as hairline rings — the grid is part of
+ * the identity, not scaffolding to hide. Defaults to the compact 3×5 cut,
+ * which is the one that survives at small sizes.
+ */
+import { wellsFor } from "../lib/wellmark";
+
+interface Props {
+  text?: string;
+  size?: number;
+  compact?: boolean;
+  /** navy tile with light wells, or transparent with dark wells */
+  tone?: "tile" | "light" | "dark";
+  class?: string;
+}
+
+const {
+  text = "Y",
+  size = 40,
+  compact = true,
+  tone = "tile",
+  class: className = "",
+} = Astro.props;
+
+const { wells, cols, rows } = wellsFor(text, compact);
+
+// Geometry in grid units: one unit per well pitch, half-unit padding around.
+const pitch = 10;
+const pad = tone === "tile" ? 9 : 2;
+const w = cols * pitch + pad * 2;
+const h = rows * pitch + pad * 2;
+
+const ink = tone === "dark" ? "#0b2036" : "#ffffff";
+const cx = (c: number) => pad + c * pitch + pitch / 2;
+const cy = (r: number) => pad + r * pitch + pitch / 2;
+---
+
+<svg
+  class={className}
+  width={size * (w / h)}
+  height={size}
+  viewBox={`0 0 ${w} ${h}`}
+  role="img"
+  aria-label={`Your Lab Marketing mark: the letter ${text.toUpperCase()} in microplate wells`}
+>
+  {
+    tone === "tile" && (
+      <rect width={w} height={h} rx={w * 0.22} fill="var(--navy)" />
+    )
+  }
+  {/* every well on the plate, empty ones as rings */}
+  <g fill="none" stroke={ink} stroke-width="1.6" opacity="0.32">
+    {wells.map((well) => <circle cx={cx(well.col)} cy={cy(well.row)} r="2.4" />)}
+  </g>
+  {/* the letter */}
+  <g fill={ink}>
+    {
+      wells
+        .filter((well) => well.filled)
+        .map((well) => <circle cx={cx(well.col)} cy={cy(well.row)} r="3.7" />)
+    }
+  </g>
+</svg>

@@ -1,0 +1,724 @@
+---
+import Base from "../layouts/Base.astro";
+import Plate from "../components/Plate.astro";
+import Showcase from "../components/Showcase.astro";
+
+const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
+const EMAIL = "hello@yourlabmarketing.com";
+
+const services = [
+  {
+    n: "01",
+    title: "Papers into posts",
+    body: "We read the manuscript — the methods and the limitations, not just the abstract — and write posts that hold up if a reviewer reads them. Your caveats survive the edit.",
+  },
+  {
+    n: "02",
+    title: "A calendar that isn't only papers",
+    body: "Publications are lumpy. In between we cover the things labs forget are interesting: a new instrument, a conference talk, a defence, a hiring push, a failed run worth explaining.",
+  },
+  {
+    n: "03",
+    title: "Written per platform",
+    body: "LinkedIn wants a considered paragraph. X wants a thread. Instagram wants a figure worth looking at. The same result, written three ways, in each platform's register.",
+  },
+  {
+    n: "04",
+    title: "Approval that takes minutes",
+    body: "No email threads, no tracked-changes documents. Drafts land in your portal, you approve or ask for a change, and nothing goes out that a PI hasn't seen.",
+  },
+];
+
+const steps = [
+  {
+    n: "01",
+    title: "Send us the work",
+    body: "A paper, a preprint, figures, or a note about what happened this week. There is no intake form to fight.",
+  },
+  {
+    n: "02",
+    title: "We draft",
+    body: "Posts written for each platform you're on, in the lab's voice, with the science kept accurate.",
+  },
+  {
+    n: "03",
+    title: "You approve",
+    body: "One screen shows every draft as it will actually appear. Approve it, or ask for a change in a sentence.",
+  },
+  {
+    n: "04",
+    title: "It goes out",
+    body: "Approved posts get published on schedule, and you get a digest of what went live and how it did.",
+  },
+];
+
+const pains = [
+  "A paper lands, gets one tweet from a co-author, and disappears.",
+  "The lab website was last updated two grant cycles ago.",
+  "Whoever has time writes the posts, so the voice changes every month.",
+  "Prospective students and collaborators can't tell what you're working on now.",
+  "Funders and press ask for 'broader impact' and there's nothing to point at.",
+];
+---
+
+<Base
+  title="Your Lab Marketing — social media for research labs"
+  description="We turn papers, preprints and lab life into social content written by people who read the methods section. Drafted for you, approved by you, published on schedule."
+>
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow reveal">Social media for research labs</span>
+        <h1 class="reveal" style="--delay:60ms">
+          The science is finished.<br />
+          <em>The story isn't.</em>
+        </h1>
+        <p class="lede measure reveal" style="--delay:140ms">
+          Your lab produces work that deserves an audience and gets a citation
+          count instead. We turn papers, preprints and everyday lab life into
+          social content written by people who actually read the methods
+          section.
+        </p>
+        <div class="hero-cta reveal" style="--delay:220ms">
+          <a class="btn btn-primary" href="#contact">
+            Book an intro call
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn-ghost" href="#work">See the work</a>
+        </div>
+        <ul class="hero-notes reveal" style="--delay:300ms">
+          <li>Written from the paper, not the press release</li>
+          <li>Nothing publishes without your approval</li>
+        </ul>
+      </div>
+
+      <div class="hero-visual reveal" style="--delay:180ms">
+        <Plate />
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY ================= -->
+  <section class="section why" id="why">
+    <div class="wrap why-grid">
+      <div class="why-copy reveal">
+        <span class="eyebrow">The gap</span>
+        <h2>Good science is not self-publicising.</h2>
+        <p class="lede measure-sm">
+          Nobody in a lab was hired to run a content calendar, and it shows —
+          not because the work isn't interesting, but because writing about it
+          well is a separate job that keeps losing to the actual job.
+        </p>
+      </div>
+
+      <ul class="pains reveal" style="--delay:120ms">
+        {
+          pains.map((p) => (
+            <li>
+              <span class="pain-well" aria-hidden="true" />
+              {p}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= SERVICES ================= -->
+  <section class="section services" id="services">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">What we do</span>
+        <h2>A studio that speaks lab.</h2>
+        <p class="lede measure">
+          We work the way a good collaborator does: read the material, ask when
+          something is ambiguous, and never oversell a result you'd have to walk
+          back.
+        </p>
+      </div>
+
+      <div class="svc-grid">
+        {
+          services.map((s, i) => (
+            <article class="svc card reveal" style={`--delay:${i * 80}ms`}>
+              <span class="svc-n">{s.n}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SHOWCASE ================= -->
+  <Showcase />
+
+  <!-- ================= PROCESS ================= -->
+  <section class="section process" id="process">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">How it works</span>
+        <h2>Four steps, and three of them are ours.</h2>
+      </div>
+
+      <ol class="steps">
+        {
+          steps.map((s, i) => (
+            <li class="step reveal" style={`--delay:${i * 90}ms`}>
+              <span class="step-n">{s.n}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= PORTAL ================= -->
+  <section class="section portal" id="portal">
+    <div class="wrap portal-grid">
+      <div class="portal-copy reveal">
+        <span class="eyebrow">The portal</span>
+        <h2>Your approval queue, not your inbox.</h2>
+        <p class="lede measure-sm">
+          Every client gets a private workspace branded to their own lab. Drafts
+          appear as they will look on the feed, you approve or ask for a change,
+          and the studio picks it up from there.
+        </p>
+        <ul class="portal-list">
+          <li>Posts shown as real platform previews, not rows in a table</li>
+          <li>Approve, or ask for a change in one sentence</li>
+          <li>Request a post, or upload an image, whenever it occurs to you</li>
+          <li>Nothing is visible to anyone outside your lab</li>
+        </ul>
+        <a class="link-arrow" href={PORTAL_URL} rel="noopener">
+          Visit the client portal
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="portal-mock reveal" style="--delay:120ms" aria-hidden="true">
+        <div class="mock">
+          <div class="mock-bar">
+            <span class="mock-dot"></span>
+            <span class="mock-dot"></span>
+            <span class="mock-dot"></span>
+            <span class="mock-title">Aster Lab · Approvals</span>
+          </div>
+          <div class="mock-body">
+            <div class="mock-row is-pending">
+              <span class="mock-status">
+                <span class="mock-pulse"></span>Needs approval
+              </span>
+              <p>Sleep fragmentation paper — LinkedIn</p>
+              <div class="mock-actions">
+                <span class="mock-btn mock-btn-go">Approve</span>
+                <span class="mock-btn">Ask for changes</span>
+              </div>
+            </div>
+            <div class="mock-row">
+              <span class="mock-status is-ok">Approved</span>
+              <p>Ripple-density figure — Instagram</p>
+            </div>
+            <div class="mock-row">
+              <span class="mock-status is-sched">Scheduled</span>
+              <p>Conference talk announcement — X</p>
+            </div>
+            <div class="mock-row">
+              <span class="mock-status is-ok">Approved</span>
+              <p>PhD position open — LinkedIn</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="section cta on-navy" id="contact">
+    <div class="wrap cta-inner">
+      <div class="reveal">
+        <span class="eyebrow">Get started</span>
+        <h2>Tell us what your lab is working on.</h2>
+        <p class="lede measure">
+          A short call, no deck. You describe the work and how much of it is
+          getting out; we tell you honestly whether we're the right fit and what
+          it would cost.
+        </p>
+      </div>
+      <div class="cta-actions reveal" style="--delay:100ms">
+        <a class="btn btn-primary" href={`mailto:${EMAIL}`}>
+          Email the studio
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn-ghost" href={PORTAL_URL} rel="noopener">
+          Client login
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ================= HERO ================= */
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3rem, 7vw, 6rem) clamp(4rem, 9vw, 7rem);
+  }
+
+  /* faint well-plate lattice behind the hero */
+  .hero-grid {
+    position: absolute;
+    inset: -10% -5% auto;
+    height: 130%;
+    background-image: radial-gradient(
+      circle at center,
+      rgba(12, 30, 51, 0.09) 1.4px,
+      transparent 1.5px
+    );
+    background-size: 34px 34px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 75% 60% at 60% 35%,
+      #000 20%,
+      transparent 75%
+    );
+    mask-image: radial-gradient(
+      ellipse 75% 60% at 60% 35%,
+      #000 20%,
+      transparent 75%
+    );
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .hero-copy h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-copy h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .hero-notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+
+  .hero-notes li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-notes li::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex: none;
+  }
+
+  /* ================= WHY ================= */
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .why-copy h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .pains li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.875rem;
+    padding: 1.0625rem 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-2);
+    font-size: 0.9375rem;
+  }
+
+  .pains li:first-child {
+    padding-top: 0;
+  }
+
+  .pains li:last-child {
+    border-bottom: 0;
+  }
+
+  .pain-well {
+    flex: none;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1.5px solid var(--muted-2);
+    transform: translateY(1px);
+  }
+
+  /* ================= section heads ================= */
+
+  .sec-head {
+    max-width: 44rem;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .sec-head h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  /* ================= SERVICES ================= */
+
+  .services {
+    background: var(--surface-2);
+    border-block: 1px solid var(--line);
+  }
+
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    gap: 1.25rem;
+  }
+
+  .svc {
+    padding: 1.75rem 1.5rem;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s,
+      border-color 0.3s;
+  }
+
+  .svc:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--accent-line);
+  }
+
+  .svc-n {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .svc h3 {
+    margin-bottom: 0.75rem;
+  }
+
+  .svc p {
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    line-height: 1.65;
+  }
+
+  /* ================= PROCESS ================= */
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+    /* Columns are separated by each step's own right padding; the row gap
+       only matters once the steps wrap, where the next step's rule would
+       otherwise land on top of the previous step's text. */
+    gap: 2.5rem 0;
+  }
+
+  .step {
+    position: relative;
+    padding: 2rem 1.5rem 0 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  /* the marker sitting on the rule */
+  .step::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .step-n {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--muted-2);
+    margin-bottom: 1rem;
+  }
+
+  .step h3 {
+    margin-bottom: 0.625rem;
+  }
+
+  .step p {
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    line-height: 1.65;
+    max-width: 34ch;
+  }
+
+  /* ================= PORTAL ================= */
+
+  .portal {
+    background: var(--surface-2);
+    border-block: 1px solid var(--line);
+  }
+
+  .portal-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(2.5rem, 6vw, 4.5rem);
+    align-items: center;
+  }
+
+  .portal-copy h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .portal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    margin: 2rem 0;
+  }
+
+  .portal-list li {
+    position: relative;
+    padding-left: 1.75rem;
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+  }
+
+  .portal-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 10px;
+    height: 6px;
+    border-left: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+    transform: rotate(-45deg);
+  }
+
+  /* ---- portal mock ---- */
+
+  .mock {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  .mock-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4375rem;
+    padding: 0.75rem 1rem;
+    background: var(--navy);
+    border-bottom: 1px solid var(--navy-line);
+  }
+
+  .mock-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--navy-line);
+  }
+
+  .mock-title {
+    margin-left: 0.625rem;
+    font-size: 0.75rem;
+    color: var(--navy-ink);
+  }
+
+  .mock-row {
+    display: grid;
+    gap: 0.625rem;
+    padding: 1.0625rem 1.25rem;
+    border-bottom: 1px solid var(--line-2);
+  }
+
+  .mock-row:last-child {
+    border-bottom: 0;
+  }
+
+  .mock-row.is-pending {
+    background: var(--accent-tint);
+  }
+
+  .mock-row p {
+    font-size: 0.875rem;
+    color: var(--ink);
+  }
+
+  .mock-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4375rem;
+    justify-self: start;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+
+  .mock-status.is-ok {
+    color: #1f6b43;
+  }
+
+  .mock-status.is-sched {
+    color: #2a5698;
+  }
+
+  .mock-status.is-ok::before,
+  .mock-status.is-sched::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .mock-pulse {
+    position: relative;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .mock-pulse::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    opacity: 0;
+    animation: ping 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  }
+
+  @keyframes ping {
+    0% {
+      transform: scale(0.6);
+      opacity: 0.8;
+    }
+    70%,
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  .mock-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .mock-btn {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.375rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--accent-line);
+    color: var(--accent-ink);
+    background: var(--surface);
+  }
+
+  .mock-btn-go {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* ================= CTA ================= */
+
+  .cta-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: end;
+  }
+
+  .cta-inner h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-end;
+  }
+
+  /* ================= responsive ================= */
+
+  @media (max-width: 980px) {
+    .hero-inner,
+    .why-grid,
+    .portal-grid,
+    .cta-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-visual {
+      order: -1;
+      max-width: 560px;
+    }
+
+    .cta-actions {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .step {
+      padding-right: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .svc:hover {
+      transform: none;
+    }
+
+    .mock-pulse::after {
+      animation: none;
+    }
+  }
+</style>

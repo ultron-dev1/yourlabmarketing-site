@@ -1,0 +1,73 @@
+---
+/** The lockup: wellmark tile + wordmark. */
+import Wellmark from "./Wellmark.astro";
+
+interface Props {
+  size?: number;
+  href?: string | null;
+  class?: string;
+}
+
+const { size = 34, href = "/", class: className = "" } = Astro.props;
+const Tag = href ? "a" : "div";
+---
+
+<Tag class:list={["logo", className]} {...href ? { href } : {}}>
+  <Wellmark text="Y" size={size} tone="tile" class="logo-mark" />
+  <span class="logo-word">
+    <span class="logo-word-1">Your Lab</span>
+    <span class="logo-word-2">Marketing</span>
+  </span>
+</Tag>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    flex: none;
+  }
+
+  .logo-mark {
+    flex: none;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .logo:hover .logo-mark {
+    transform: translateY(-2px);
+  }
+
+  .logo-word {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    font-size: 0.9375rem;
+    letter-spacing: -0.012em;
+  }
+
+  .logo-word-1 {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .logo-word-2 {
+    font-weight: 400;
+    color: var(--muted);
+    font-size: 0.8125rem;
+    letter-spacing: 0.01em;
+  }
+
+  :global(.on-navy) .logo-word-1 {
+    color: #fff;
+  }
+
+  :global(.on-navy) .logo-word-2 {
+    color: var(--navy-ink-2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo:hover .logo-mark {
+      transform: none;
+    }
+  }
+</style>

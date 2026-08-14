@@ -1,0 +1,619 @@
+---
+/**
+ * Paper in, posts out. The previews carry real platform chrome because that
+ * is the thing people react to — a plain list of captions reads as a text
+ * file, not as something that will appear on their feed.
+ *
+ * The lab here is invented and labelled as a sample; nothing on this page
+ * should read as a claim about a real client.
+ */
+import Wellmark from "./Wellmark.astro";
+
+const LAB = "Aster Lab";
+const HANDLE = "@asterlab";
+
+const posts = [
+  {
+    id: "linkedin",
+    name: "LinkedIn",
+    body: `Sleep isn't downtime for memory — it's the shift when the work gets done.
+
+Our new paper shows that fragmenting sleep in mice, without shortening it, still measurably weakens how the hippocampus consolidates what was learned that day. Total hours slept looked normal. The consolidation did not.
+
+The practical read: studies that track sleep duration alone may be missing the variable that matters.
+
+Full paper linked below. Happy to talk methods with anyone working on this.`,
+    tags: "#neuroscience #sleepresearch #memory",
+    stats: ["148 reactions", "31 comments", "12 reposts"],
+  },
+  {
+    id: "x",
+    name: "X",
+    body: `New from the lab 🧵
+
+We broke sleep into fragments without shortening it. Mice slept the same number of hours — and still consolidated memory worse.
+
+Duration was never the whole story. Continuity is doing real work.
+
+1/6`,
+    tags: "",
+    stats: ["312", "88", "1.2K"],
+  },
+  {
+    id: "instagram",
+    name: "Instagram",
+    body: `Same hours of sleep. Worse memory. 🧠
+
+Our latest paper found that interrupted sleep weakens memory consolidation even when total sleep time stays the same — which means counting hours may be missing the point.
+
+Swipe for the three figures that convinced us, and the one that didn't.`,
+    tags: "#neuroscience #phdlife #inthelab #sleep",
+    stats: ["1,204 likes", "47 comments"],
+  },
+];
+---
+
+<section class="section showcase on-navy" id="work">
+  <div class="wrap">
+    <div class="showcase-head reveal">
+      <span class="eyebrow">The work</span>
+      <h2>One paper. Every feed it belongs on.</h2>
+      <p class="lede measure">
+        You send the manuscript. We return posts written for each platform's
+        register — not the same paragraph pasted four times — and you approve
+        them in one place.
+      </p>
+    </div>
+
+    <div class="flow">
+      <!-- source -->
+      <article class="paper reveal" style="--delay:80ms">
+        <div class="paper-chip">Sample · not a real study</div>
+        <div class="paper-meta">Peer-reviewed article · 2026</div>
+        <h3 class="paper-title">
+          Sleep fragmentation impairs hippocampal memory consolidation
+          independently of total sleep duration
+        </h3>
+        <p class="paper-authors">Okonjo A, Whitfield R, Sarr M, Delacroix J</p>
+        <div class="paper-abstract">
+          <p>
+            <mark>Fragmented sleep degraded consolidation</mark> in a
+            spatial-memory task despite matched total sleep time. Recordings
+            showed reduced sharp-wave ripple density during the first
+            post-training rest period…
+          </p>
+        </div>
+        <div class="paper-foot">
+          <span class="paper-pages">14 pages · 6 figures</span>
+        </div>
+      </article>
+
+      <!-- transform -->
+      <div class="flow-arrow reveal" style="--delay:160ms" aria-hidden="true">
+        <span class="flow-line"></span>
+        <span class="flow-label">drafted</span>
+        <span class="flow-line"></span>
+      </div>
+
+      <!-- output -->
+      <div class="output reveal" style="--delay:240ms">
+        <div class="tabs" role="tablist" aria-label="Platform">
+          {
+            posts.map((p, i) => (
+              <button
+                class:list={["tab", { "is-active": i === 0 }]}
+                role="tab"
+                type="button"
+                id={`tab-${p.id}`}
+                aria-controls={`panel-${p.id}`}
+                aria-selected={i === 0 ? "true" : "false"}
+                tabindex={i === 0 ? 0 : -1}
+                data-target={p.id}
+              >
+                {p.name}
+                <span class="tab-progress" aria-hidden="true" />
+              </button>
+            ))
+          }
+        </div>
+
+        <div class="panels">
+          {
+            posts.map((p, i) => (
+              <div
+                class:list={["panel", { "is-active": i === 0 }]}
+                role="tabpanel"
+                id={`panel-${p.id}`}
+                aria-labelledby={`tab-${p.id}`}
+                data-panel={p.id}
+                hidden={i !== 0}
+              >
+                <div class:list={["post", `post-${p.id}`]}>
+                  <header class="post-head">
+                    <Wellmark text="AL" size={40} tone="tile" />
+                    <div class="post-who">
+                      <span class="post-name">{LAB}</span>
+                      <span class="post-sub">
+                        {p.id === "x"
+                          ? HANDLE
+                          : p.id === "instagram"
+                            ? "asterlab"
+                            : "Cognitive neuroscience · 2,410 followers"}
+                      </span>
+                    </div>
+                    <span class="post-dots" aria-hidden="true">
+                      •••
+                    </span>
+                  </header>
+
+                  {p.id === "instagram" && (
+                    <div class="post-figure" aria-hidden="true">
+                      <div class="fig-plot">
+                        <span class="fig-bar" style="--h:38%" />
+                        <span class="fig-bar" style="--h:62%" />
+                        <span class="fig-bar" style="--h:47%" />
+                        <span class="fig-bar" style="--h:88%" />
+                        <span class="fig-bar" style="--h:71%" />
+                      </div>
+                      <span class="fig-caption">Fig. 3 — ripple density</span>
+                    </div>
+                  )}
+
+                  <div class="post-body">
+                    {p.body.split("\n\n").map((para) => (
+                      <p>{para}</p>
+                    ))}
+                    {p.tags && <p class="post-tags">{p.tags}</p>}
+                  </div>
+
+                  <footer class="post-stats">
+                    {p.stats.map((s) => (
+                      <span>{s}</span>
+                    ))}
+                  </footer>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>(".showcase .output");
+  if (root) {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>(".tab"));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>(".panel"));
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const HOLD = 7000;
+    let timer: number | undefined;
+    let index = 0;
+    let auto = true;
+
+    const select = (next: number, focus = false) => {
+      index = (next + tabs.length) % tabs.length;
+      tabs.forEach((tab, i) => {
+        const on = i === index;
+        tab.classList.toggle("is-active", on);
+        tab.setAttribute("aria-selected", String(on));
+        tab.tabIndex = on ? 0 : -1;
+        if (on && focus) tab.focus();
+      });
+      panels.forEach((panel, i) => {
+        panel.hidden = i !== index;
+        panel.classList.toggle("is-active", i === index);
+      });
+      restart();
+    };
+
+    const restart = () => {
+      window.clearTimeout(timer);
+      const active = tabs[index];
+      // retrigger the progress sweep
+      active.classList.remove("is-timing");
+      void active.offsetWidth;
+      if (!auto || reduce.matches) return;
+      active.classList.add("is-timing");
+      timer = window.setTimeout(() => select(index + 1), HOLD);
+    };
+
+    const stopAuto = () => {
+      auto = false;
+      window.clearTimeout(timer);
+      for (const t of tabs) t.classList.remove("is-timing");
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => {
+        stopAuto();
+        select(i);
+      });
+      tab.addEventListener("keydown", (e) => {
+        const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!step) return;
+        e.preventDefault();
+        stopAuto();
+        select(i + step, true);
+      });
+    });
+
+    // Only run the carousel while it is on screen.
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) restart();
+        else window.clearTimeout(timer);
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(root);
+  }
+</script>
+
+<style>
+  .showcase {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .showcase-head {
+    max-width: 46rem;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .showcase-head h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .flow {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) auto minmax(0, 1.15fr);
+    align-items: start;
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  /* ---------- source paper ---------- */
+
+  .paper {
+    position: relative;
+    background: #0e2740;
+    border: 1px solid var(--navy-line);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .paper-chip {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy-ink-2);
+    border: 1px solid var(--navy-line);
+    border-radius: 999px;
+    padding: 0.25rem 0.625rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .paper-meta {
+    font-size: 0.75rem;
+    color: var(--navy-ink-2);
+    margin-bottom: 0.625rem;
+  }
+
+  .paper-title {
+    font-size: 1.0625rem;
+    line-height: 1.35;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .paper-authors {
+    font-size: 0.8125rem;
+    color: var(--navy-ink-2);
+    margin-bottom: 1.25rem;
+  }
+
+  .paper-abstract {
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: var(--navy-ink);
+    border-top: 1px solid var(--navy-line);
+    padding-top: 1rem;
+  }
+
+  .paper-abstract mark {
+    background: rgba(111, 212, 200, 0.16);
+    color: #b9ece4;
+    box-shadow: inset 0 -1px 0 rgba(111, 212, 200, 0.4);
+    border-radius: 2px;
+  }
+
+  .paper-foot {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--navy-line);
+  }
+
+  .paper-pages {
+    font-size: 0.75rem;
+    color: var(--navy-ink-2);
+  }
+
+  /* ---------- connector ---------- */
+
+  .flow-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 6rem;
+    color: var(--navy-ink-2);
+  }
+
+  .flow-line {
+    width: 1px;
+    flex: 1;
+    min-height: 28px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--navy-line) 30%,
+      var(--navy-line) 70%,
+      transparent
+    );
+  }
+
+  .flow-label {
+    font-size: 0.625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    color: #6fd4c8;
+  }
+
+  /* ---------- tabs ---------- */
+
+  .tabs {
+    display: flex;
+    gap: 0.375rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    position: relative;
+    overflow: hidden;
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--navy-ink);
+    background: transparent;
+    border: 1px solid var(--navy-line);
+    border-radius: 999px;
+    padding: 0.4375rem 0.9375rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+  }
+
+  .tab:hover {
+    color: #fff;
+    border-color: var(--navy-ink-2);
+  }
+
+  .tab.is-active {
+    color: var(--navy);
+    background: #6fd4c8;
+    border-color: #6fd4c8;
+  }
+
+  .tab-progress {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 2px;
+    background: rgba(11, 32, 54, 0.35);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .tab.is-timing .tab-progress {
+    animation: sweep 7s linear forwards;
+  }
+
+  @keyframes sweep {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* ---------- post previews ---------- */
+
+  .panel {
+    animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+
+  .post {
+    background: #fff;
+    color: var(--ink);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  .post-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.125rem;
+  }
+
+  .post-who {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+    min-width: 0;
+  }
+
+  .post-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .post-sub {
+    font-size: 0.75rem;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .post-dots {
+    margin-left: auto;
+    color: var(--muted-2);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .post-body {
+    padding: 0 1.125rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .post-tags {
+    color: #2a5698;
+  }
+
+  .post-stats {
+    display: flex;
+    gap: 1.25rem;
+    padding: 0.875rem 1.125rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  /* X reads tighter and sans-heavier than LinkedIn */
+  .post-x .post-body {
+    font-size: 0.9375rem;
+  }
+
+  .post-x .post-who {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.375rem;
+  }
+
+  .post-x .post-stats {
+    gap: 2.5rem;
+  }
+
+  /* Instagram leads with the figure */
+  .post-figure {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(160deg, #0e2740, #0b2036);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 1.75rem 2rem 2.25rem;
+  }
+
+  .fig-plot {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    height: 100%;
+    width: 100%;
+  }
+
+  .fig-bar {
+    flex: 1;
+    height: var(--h);
+    background: linear-gradient(to top, #0f6e68, #6fd4c8);
+    border-radius: 3px 3px 0 0;
+    transform-origin: bottom;
+    animation: grow 0.9s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  .fig-bar:nth-child(2) {
+    animation-delay: 0.08s;
+  }
+  .fig-bar:nth-child(3) {
+    animation-delay: 0.16s;
+  }
+  .fig-bar:nth-child(4) {
+    animation-delay: 0.24s;
+  }
+  .fig-bar:nth-child(5) {
+    animation-delay: 0.32s;
+  }
+
+  @keyframes grow {
+    from {
+      transform: scaleY(0);
+    }
+  }
+
+  .fig-caption {
+    position: absolute;
+    left: 1rem;
+    bottom: 0.625rem;
+    font-size: 0.6875rem;
+    color: var(--navy-ink-2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .panel,
+    .fig-bar {
+      animation: none;
+    }
+
+    .tab.is-timing .tab-progress {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 940px) {
+    .flow {
+      grid-template-columns: 1fr;
+    }
+
+    .flow-arrow {
+      flex-direction: row;
+      padding-top: 0;
+      width: 100%;
+    }
+
+    .flow-line {
+      width: auto;
+      height: 1px;
+      min-height: 0;
+      background: linear-gradient(
+        to right,
+        transparent,
+        var(--navy-line) 30%,
+        var(--navy-line) 70%,
+        transparent
+      );
+    }
+
+    .flow-label {
+      writing-mode: horizontal-tb;
+    }
+  }
+</style>

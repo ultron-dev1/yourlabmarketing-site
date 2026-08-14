@@ -1,0 +1,358 @@
+---
+/**
+ * The hero visual: a real 96-well microplate (12×8) that the identity grid
+ * is projected onto. It shimmers like a plate being read, then the wells
+ * resolve outward into the "YLM" monogram and hold, then dissolve back.
+ *
+ * The plate also responds to the pointer — wells near the cursor lift.
+ * Both behaviours are dropped entirely under prefers-reduced-motion, which
+ * leaves the monogram showing statically.
+ */
+import { wordOnGrid } from "../lib/wellmark";
+
+const COLS = 12;
+const ROWS = 8;
+const PITCH = 34;
+const GUTTER = 24;
+const INSET = 16;
+
+const plateW = COLS * PITCH + INSET * 2;
+const plateH = ROWS * PITCH + INSET * 2;
+const vbW = GUTTER + plateW + 8;
+const vbH = GUTTER + plateH + 8;
+const x0 = GUTTER + INSET;
+const y0 = GUTTER + INSET;
+
+const word = wordOnGrid("YLM", COLS, ROWS);
+
+const cx = (c: number) => x0 + c * PITCH + PITCH / 2;
+const cy = (r: number) => y0 + r * PITCH + PITCH / 2;
+
+// Radial distance from the plate centre, normalised — drives the reveal wave.
+const midC = (COLS - 1) / 2;
+const midR = (ROWS - 1) / 2;
+const maxD = Math.hypot(midC, midR);
+
+const wells = [];
+for (let r = 0; r < ROWS; r++) {
+  for (let c = 0; c < COLS; c++) {
+    wells.push({
+      c,
+      r,
+      cx: cx(c),
+      cy: cy(r),
+      inWord: word.has(`${c},${r}`),
+      dist: Math.hypot(c - midC, r - midR) / maxD,
+    });
+  }
+}
+
+const rowLabels = "ABCDEFGH".split("");
+---
+
+<div class="plate-stage">
+  <svg
+    class="plate"
+    viewBox={`0 0 ${vbW} ${vbH}`}
+    role="img"
+    aria-label="A 96-well microplate whose wells resolve into the Your Lab Marketing monogram"
+  >
+    <defs>
+      <linearGradient id="plate-body" x1="0" y1="0" x2="0.6" y2="1">
+        <stop offset="0%" stop-color="#12304c"></stop>
+        <stop offset="100%" stop-color="#0a1c2f"></stop>
+      </linearGradient>
+      <radialGradient id="plate-glow" cx="50%" cy="45%" r="60%">
+        <stop offset="0%" stop-color="#0f6e68" stop-opacity="0.28"></stop>
+        <stop offset="100%" stop-color="#0f6e68" stop-opacity="0"></stop>
+      </radialGradient>
+    </defs>
+
+    <!-- plate body -->
+    <rect
+      x={GUTTER}
+      y={GUTTER}
+      width={plateW}
+      height={plateH}
+      rx="18"
+      fill="url(#plate-body)"
+    ></rect>
+    <rect
+      x={GUTTER + 0.5}
+      y={GUTTER + 0.5}
+      width={plateW - 1}
+      height={plateH - 1}
+      rx="17.5"
+      fill="none"
+      stroke="#1e3c5a"
+    ></rect>
+    <rect
+      x={GUTTER}
+      y={GUTTER}
+      width={plateW}
+      height={plateH}
+      rx="18"
+      fill="url(#plate-glow)"
+    ></rect>
+
+    <!-- notched A1 corner, the way a real plate is keyed -->
+    <path
+      d={`M ${GUTTER} ${GUTTER + 18} L ${GUTTER + 18} ${GUTTER}`}
+      stroke="#1e3c5a"
+      stroke-width="1"
+      fill="none"></path>
+
+    <!-- coordinates -->
+    <g class="plate-labels" fill="#6f8399" font-size="9" font-family="var(--sans)">
+      {
+        Array.from({ length: COLS }, (_, c) => (
+          <text x={cx(c)} y={GUTTER - 8} text-anchor="middle">
+            {c + 1}
+          </text>
+        ))
+      }
+      {
+        rowLabels.map((l, r) => (
+          <text x={GUTTER - 9} y={cy(r) + 3} text-anchor="middle">
+            {l}
+          </text>
+        ))
+      }
+    </g>
+
+    <!-- the wells -->
+    <g class="wells">
+      {
+        wells.map((w) => (
+          <g
+            class="well"
+            data-word={w.inWord ? "1" : null}
+            data-dist={w.dist.toFixed(3)}
+            style={`--x:${w.cx}px; --y:${w.cy}px`}
+          >
+            <circle class="well-ring" cx={w.cx} cy={w.cy} r="11" />
+            <circle class="well-fill" cx={w.cx} cy={w.cy} r="8" />
+          </g>
+        ))
+      }
+    </g>
+  </svg>
+</div>
+
+<script>
+  const stage = document.querySelector<HTMLElement>(".plate-stage");
+  const svg = stage?.querySelector<SVGSVGElement>(".plate");
+  if (stage && svg) {
+    const wells = Array.from(svg.querySelectorAll<SVGGElement>(".well"));
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    /* ---------- the cycle ---------- */
+
+    let timer: number | undefined;
+
+    const setDelays = (fn: (w: SVGGElement) => number) => {
+      for (const w of wells) w.style.transitionDelay = `${fn(w)}ms`;
+    };
+
+    const radial = (w: SVGGElement) => Number(w.dataset.dist) * 620;
+    const radialOut = (w: SVGGElement) => (1 - Number(w.dataset.dist)) * 420;
+
+    const showWord = () => {
+      setDelays(radial);
+      for (const w of wells) w.classList.toggle("is-lit", w.dataset.word === "1");
+    };
+
+    const shimmer = () => {
+      setDelays(() => Math.random() * 500);
+      for (const w of wells) w.classList.toggle("is-lit", Math.random() < 0.18);
+    };
+
+    const clear = () => {
+      setDelays(radialOut);
+      for (const w of wells) w.classList.remove("is-lit");
+    };
+
+    // word (hold) -> clear -> three shimmer rounds -> word again
+    const steps: [() => void, number][] = [
+      [showWord, 3800],
+      [clear, 500],
+      [shimmer, 1200],
+      [shimmer, 1200],
+      [shimmer, 1200],
+      [clear, 600],
+    ];
+
+    let step = 0;
+    const tick = () => {
+      const [run, wait] = steps[step % steps.length];
+      run();
+      step++;
+      timer = window.setTimeout(tick, wait);
+    };
+
+    /* ---------- pointer response ---------- */
+
+    let pointer: { x: number; y: number } | null = null;
+    let queued = false;
+
+    const paintNear = () => {
+      queued = false;
+      const box = svg.getBoundingClientRect();
+      const scale = box.width / svg.viewBox.baseVal.width;
+      for (const w of wells) {
+        if (!pointer) {
+          w.classList.remove("is-near");
+          continue;
+        }
+        // well centre in viewBox units -> page units
+        const wx = box.left + parseFloat(w.style.getPropertyValue("--x")) * scale;
+        const wy = box.top + parseFloat(w.style.getPropertyValue("--y")) * scale;
+        const d = Math.hypot(pointer.x - wx, pointer.y - wy);
+        w.classList.toggle("is-near", d < 74);
+      }
+    };
+
+    const queuePaint = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(paintNear);
+    };
+
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      pointer = { x: e.clientX, y: e.clientY };
+      queuePaint();
+    };
+
+    const onLeave = () => {
+      pointer = null;
+      queuePaint();
+    };
+
+    /* ---------- wiring ---------- */
+
+    const start = () => {
+      if (reduce.matches) {
+        setDelays(() => 0);
+        showWord();
+        return;
+      }
+      if (timer === undefined) {
+        step = 0;
+        tick();
+      }
+      stage.addEventListener("pointermove", onMove);
+      stage.addEventListener("pointerleave", onLeave);
+    };
+
+    const stop = () => {
+      window.clearTimeout(timer);
+      timer = undefined;
+      stage.removeEventListener("pointermove", onMove);
+      stage.removeEventListener("pointerleave", onLeave);
+      onLeave();
+    };
+
+    // Don't animate a plate nobody is looking at.
+    const io = new IntersectionObserver(
+      ([entry]) => (entry.isIntersecting ? start() : stop()),
+      { threshold: 0.1 },
+    );
+    io.observe(stage);
+
+    reduce.addEventListener("change", () => {
+      stop();
+      start();
+    });
+  }
+</script>
+
+<style>
+  .plate-stage {
+    position: relative;
+    width: 100%;
+  }
+
+  /* soft teal bloom behind the plate */
+  .plate-stage::before {
+    content: "";
+    position: absolute;
+    inset: -12% -8%;
+    background: radial-gradient(
+      ellipse at 55% 45%,
+      rgba(15, 110, 104, 0.16),
+      transparent 65%
+    );
+    filter: blur(8px);
+    pointer-events: none;
+  }
+
+  .plate {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    filter: drop-shadow(0 30px 60px rgba(11, 32, 54, 0.28));
+  }
+
+  .plate-labels {
+    letter-spacing: 0.06em;
+  }
+
+  .well-ring {
+    fill: none;
+    stroke: #2b4c6b;
+    stroke-width: 1.2;
+    transition: stroke 0.5s ease, opacity 0.5s ease;
+    transition-delay: inherit;
+  }
+
+  .well-fill {
+    fill: #6fd4c8;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(0.35);
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: inherit;
+  }
+
+  .well {
+    transition-delay: 0ms;
+  }
+
+  .well.is-lit .well-fill {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .well.is-lit .well-ring {
+    stroke: #6fd4c8;
+    opacity: 0.55;
+  }
+
+  /* pointer proximity — immediate, never on the cycle's delay */
+  .well.is-near .well-ring {
+    stroke: #8fe3d8;
+    opacity: 0.9;
+    transition-delay: 0ms;
+  }
+
+  .well.is-near .well-fill {
+    transition-delay: 0ms;
+    transform: scale(1.12);
+  }
+
+  .well.is-near:not(.is-lit) .well-fill {
+    opacity: 0.22;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .well-ring,
+    .well-fill {
+      transition: none;
+    }
+  }
+</style>

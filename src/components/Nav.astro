@@ -1,0 +1,246 @@
+---
+import Logo from "./Logo.astro";
+
+const links = [
+  { href: "/#services", label: "What we do" },
+  { href: "/#work", label: "The work" },
+  { href: "/#process", label: "How it works" },
+  { href: "/#portal", label: "The portal" },
+];
+
+const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
+---
+
+<header class="nav" id="nav">
+  <div class="nav-inner wrap">
+    <Logo />
+
+    <nav class="nav-links" aria-label="Primary">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+
+    <div class="nav-actions">
+      <a class="nav-login" href={PORTAL_URL} rel="noopener">Client login</a>
+      <a class="btn btn-primary nav-cta" href="/#contact">
+        Book a call
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="nav-mobile"
+        aria-label="Open menu"
+      >
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="nav-mobile" id="nav-mobile" hidden>
+    <nav class="wrap" aria-label="Mobile">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      <a href={PORTAL_URL} rel="noopener">Client login</a>
+      <a class="btn btn-primary" href="/#contact">
+        Book a call
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const nav = document.getElementById("nav")!;
+  const toggle = nav.querySelector<HTMLButtonElement>(".nav-toggle")!;
+  const panel = document.getElementById("nav-mobile")!;
+
+  // Hairline + blur only once the page has moved, so the hero starts clean.
+  const onScroll = () => nav.classList.toggle("is-stuck", window.scrollY > 8);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  const setOpen = (open: boolean) => {
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    panel.hidden = !open;
+    nav.classList.toggle("is-open", open);
+    document.body.style.overflow = open ? "hidden" : "";
+  };
+
+  toggle.addEventListener("click", () =>
+    setOpen(toggle.getAttribute("aria-expanded") !== "true"),
+  );
+
+  panel.addEventListener("click", (e) => {
+    if ((e.target as HTMLElement).closest("a")) setOpen(false);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !panel.hidden) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+
+  // A resize past the breakpoint leaves the panel orphaned otherwise.
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 880 && !panel.hidden) setOpen(false);
+  });
+</script>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s, background-color 0.25s, backdrop-filter 0.25s;
+  }
+
+  .nav.is-stuck {
+    border-bottom-color: var(--line);
+    backdrop-filter: saturate(1.6) blur(12px);
+    -webkit-backdrop-filter: saturate(1.6) blur(12px);
+  }
+
+  .nav.is-open {
+    background: var(--bg);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    min-height: 74px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-inline: auto;
+  }
+
+  .nav-links a {
+    position: relative;
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    transition: color 0.2s;
+  }
+
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 1.5px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .nav-links a:hover {
+    color: var(--ink);
+  }
+
+  .nav-links a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex: none;
+  }
+
+  .nav-login {
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    transition: color 0.2s;
+  }
+
+  .nav-login:hover {
+    color: var(--accent);
+  }
+
+  .nav-cta {
+    padding: 0.625rem 1.125rem;
+    font-size: 0.9rem;
+  }
+
+  /* ---- mobile ---- */
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 0 8px;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+
+  .nav-toggle span {
+    display: block;
+    height: 1.5px;
+    background: var(--ink);
+    transition: transform 0.25s, opacity 0.25s;
+  }
+
+  .nav.is-open .nav-toggle span:first-child {
+    transform: translateY(3.25px) rotate(45deg);
+  }
+
+  .nav.is-open .nav-toggle span:last-child {
+    transform: translateY(-3.25px) rotate(-45deg);
+  }
+
+  .nav-mobile {
+    border-top: 1px solid var(--line);
+  }
+
+  .nav-mobile nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-block: 1rem 1.75rem;
+  }
+
+  .nav-mobile a:not(.btn) {
+    padding: 0.75rem 0;
+    font-size: 1.0625rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line-2);
+  }
+
+  .nav-mobile .btn {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 880px) {
+    .nav-links,
+    .nav-login,
+    .nav-cta {
+      display: none;
+    }
+
+    .nav-toggle {
+      display: flex;
+    }
+  }
+
+  @media (min-width: 881px) {
+    .nav-mobile {
+      display: none;
+    }
+  }
+</style>
