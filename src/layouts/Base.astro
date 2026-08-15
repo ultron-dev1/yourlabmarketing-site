@@ -45,6 +45,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://yourlabmark
 
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     <Nav />
     <main id="main">
       <slot />
@@ -71,6 +72,30 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://yourlabmark
         for (const el of items) io.observe(el);
       } else {
         for (const el of items) el.classList.add("is-in");
+      }
+
+      // Thin accent bar tracking how far down the page the reader is.
+      const bar = document.getElementById("scroll-progress");
+      if (bar && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        let ticking = false;
+        const update = () => {
+          ticking = false;
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+          bar.style.transform = `scaleX(${p})`;
+        };
+        update();
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(update);
+            }
+          },
+          { passive: true },
+        );
+        window.addEventListener("resize", update);
       }
     </script>
   </body>

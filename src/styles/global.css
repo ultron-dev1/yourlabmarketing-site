@@ -7,9 +7,9 @@
 
 :root {
   /* Ground & surface */
-  --bg: #f4f6f9;
+  --bg: #eef1f6;
   --surface: #ffffff;
-  --surface-2: #fafbfc;
+  --surface-2: #e4e9f0;
 
   /* Ink */
   --ink: #0c1e33;
@@ -18,8 +18,8 @@
   --muted-2: #94a3b8;
 
   /* Structure */
-  --line: #e4e9ef;
-  --line-2: #eef2f6;
+  --line: #d7dee8;
+  --line-2: #e2e8f0;
 
   /* Navy: deep chrome */
   --navy: #0b2036;
@@ -374,4 +374,23 @@ html.reduce-motion .reveal {
 
 .skip-link:focus {
   transform: translate(-50%, 0);
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 101;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    display: none;
+  }
 }

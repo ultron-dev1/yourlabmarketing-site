@@ -3,17 +3,17 @@ import Logo from "./Logo.astro";
 
 const links = [
   { href: "/services", label: "Services" },
-  { href: "/#work", label: "The work" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
 const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
+const EMAIL = "hello@yourlabmarketing.com";
 ---
 
 <header class="nav" id="nav">
   <div class="nav-inner wrap">
-    <Logo />
+    <Logo size={51} />
 
     <nav class="nav-links" aria-label="Primary">
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
@@ -21,8 +21,8 @@ const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
 
     <div class="nav-actions">
       <a class="nav-login" href={PORTAL_URL} rel="noopener">Client login</a>
-      <a class="btn btn-primary nav-cta" href="/contact">
-        Book a call
+      <a class="btn btn-primary nav-cta" href={`mailto:${EMAIL}`}>
+        Start a conversation
         <span class="arrow" aria-hidden="true">→</span>
       </a>
       <button
@@ -41,8 +41,8 @@ const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
     <nav class="wrap" aria-label="Mobile">
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
       <a href={PORTAL_URL} rel="noopener">Client login</a>
-      <a class="btn btn-primary" href="/contact">
-        Book a call
+      <a class="btn btn-primary" href={`mailto:${EMAIL}`}>
+        Start a conversation
         <span class="arrow" aria-hidden="true">→</span>
       </a>
     </nav>

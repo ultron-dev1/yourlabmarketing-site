@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Plate from "../components/Plate.astro";
 import Showcase from "../components/Showcase.astro";
+import ScienceStrip from "../components/ScienceStrip.astro";
 
 const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
 const EMAIL = "hello@yourlabmarketing.com";
@@ -32,7 +33,7 @@ const steps = [
   {
     n: "02",
     title: "We draft",
-    body: "Posts written for each platform you're on, in the lab's voice, with the science kept accurate.",
+    body: "AI drafts from your source material for each platform you're on. A person on our team checks the science and the voice before you ever see it.",
   },
   {
     n: "03",
@@ -56,34 +57,33 @@ const pains = [
 ---
 
 <Base
-  title="Your Lab Marketing | Social media for research labs"
-  description="We turn papers, preprints and lab life into social content written by people who read the methods section. Drafted for you, approved by you, published on schedule."
+  title="Your Lab Marketing | Marketing for research labs"
+  description="AI-drafted, human-reviewed marketing for research labs: social media across LinkedIn, X, and Instagram, plus website design and updates."
 >
   <!-- ================= HERO ================= -->
   <section class="hero">
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <span class="eyebrow reveal">Social media for research labs</span>
+        <span class="eyebrow reveal">Marketing for scientific ambition</span>
         <h1 class="reveal" style="--delay:60ms">
-          The science is finished.<br />
-          <em>The story isn't.</em>
+          Make your lab <em>impossible</em> to overlook.
         </h1>
         <p class="lede measure reveal" style="--delay:140ms">
-          Your lab produces work that deserves an audience and gets a citation
-          count instead. We turn papers, preprints and everyday lab life into
-          social content written by people who read the methods section.
+          We turn your papers into posts and keep your site current, so
+          funders, collaborators, and prospective students see a lab worth
+          paying attention to.
         </p>
         <div class="hero-cta reveal" style="--delay:220ms">
-          <a class="btn btn-primary" href="/contact">
-            Book an intro call
+          <a class="btn btn-primary" href={`mailto:${EMAIL}`}>
+            Start a conversation
             <span class="arrow" aria-hidden="true">→</span>
           </a>
           <a class="btn btn-ghost" href="#work">See the work</a>
         </div>
-        <ul class="hero-notes reveal" style="--delay:300ms">
-          <li>Written from the paper, not the press release</li>
-          <li>You approve every post before it goes out</li>
+        <ul class="hero-notes">
+          <li class="reveal" style="--delay:300ms">AI drafts fast, a person reviews every line</li>
+          <li class="reveal" style="--delay:370ms">You approve everything before it goes out, too</li>
         </ul>
       </div>
 
@@ -92,6 +92,8 @@ const pains = [
       </div>
     </div>
   </section>
+
+  <ScienceStrip />
 
   <!-- ================= WHY ================= -->
   <section class="section why" id="why">
@@ -106,10 +108,10 @@ const pains = [
         </p>
       </div>
 
-      <ul class="pains reveal" style="--delay:120ms">
+      <ul class="pains">
         {
-          pains.map((p) => (
-            <li>
+          pains.map((p, i) => (
+            <li class="reveal" style={`--delay:${i * 70}ms`}>
               <span class="pain-well" aria-hidden="true" />
               {p}
             </li>
@@ -190,10 +192,10 @@ const pains = [
           and the studio picks it up from there.
         </p>
         <ul class="portal-list">
-          <li>Posts shown as real platform previews, not rows in a table</li>
-          <li>Approve, or ask for a change in one sentence</li>
-          <li>Request a post, or upload an image, whenever it occurs to you</li>
-          <li>Only your lab can see it</li>
+          <li class="reveal" style="--delay:0ms">Posts shown as real platform previews, not rows in a table</li>
+          <li class="reveal" style="--delay:60ms">Approve, or ask for a change in one sentence</li>
+          <li class="reveal" style="--delay:120ms">Request a post, or upload an image, whenever it occurs to you</li>
+          <li class="reveal" style="--delay:180ms">Only your lab can see it</li>
         </ul>
         <a class="link-arrow" href={PORTAL_URL} rel="noopener">
           Visit the client portal
@@ -242,17 +244,17 @@ const pains = [
   <section class="section cta on-navy" id="contact">
     <div class="wrap cta-inner">
       <div class="reveal">
-        <span class="eyebrow">Get started</span>
-        <h2>Tell us what your lab is working on.</h2>
+        <span class="eyebrow">Ready when you are</span>
+        <h2>Your next discovery deserves an audience.</h2>
         <p class="lede measure">
-          A short call, no deck. You describe the work and how much of it is
-          getting out; we tell you plainly whether we're the right fit and what
-          it would cost.
+          Tell us what your lab is working on. We'll say plainly what
+          consistent posts and a site that keeps up would look like, and
+          what it would cost.
         </p>
       </div>
       <div class="cta-actions reveal" style="--delay:100ms">
         <a class="btn btn-primary" href={`mailto:${EMAIL}`}>
-          Email the studio
+          Start a conversation
           <span class="arrow" aria-hidden="true">→</span>
         </a>
         <a class="btn btn-ghost" href={PORTAL_URL} rel="noopener">
@@ -294,6 +296,7 @@ const pains = [
       transparent 75%
     );
     pointer-events: none;
+    will-change: transform;
   }
 
   .hero-inner {
@@ -762,3 +765,39 @@ const pains = [
     }
   }
 </style>
+
+<script>
+  // A faint drift on the hero's dot lattice while it's on screen, capped
+  // small so it reads as depth, not distraction.
+  const grid = document.querySelector<HTMLElement>(".hero-grid");
+  const hero = document.querySelector<HTMLElement>(".hero");
+  if (grid && hero && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let ticking = false;
+    let active = false;
+
+    const update = () => {
+      ticking = false;
+      if (!active) return;
+      const rect = hero.getBoundingClientRect();
+      const drift = Math.max(-16, Math.min(16, rect.top * -0.06));
+      grid.style.transform = `translateY(${drift}px)`;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        active = entry.isIntersecting;
+        if (active) onScroll();
+      },
+      { threshold: 0 },
+    );
+    io.observe(hero);
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+</script>

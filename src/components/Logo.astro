@@ -10,9 +10,15 @@ interface Props {
 
 const { size = 34, href = "/", class: className = "" } = Astro.props;
 const Tag = href ? "a" : "div";
+// Wordmark text scales with the mark, so a bigger logo stays proportional.
+const scale = size / 34;
 ---
 
-<Tag class:list={["logo", className]} {...href ? { href } : {}}>
+<Tag
+  class:list={["logo", className]}
+  style={`--logo-scale: ${scale}`}
+  {...href ? { href } : {}}
+>
   <Wellmark text="Y" size={size} tone="tile" class="logo-mark" />
   <span class="logo-word">
     <span class="logo-word-1">Your Lab</span>
@@ -41,7 +47,7 @@ const Tag = href ? "a" : "div";
     display: flex;
     flex-direction: column;
     line-height: 1.1;
-    font-size: 0.9375rem;
+    font-size: calc(0.9375rem * var(--logo-scale, 1));
     letter-spacing: -0.012em;
   }
 
@@ -53,7 +59,7 @@ const Tag = href ? "a" : "div";
   .logo-word-2 {
     font-weight: 400;
     color: var(--muted);
-    font-size: 0.8125rem;
+    font-size: calc(0.8125rem * var(--logo-scale, 1));
     letter-spacing: 0.01em;
   }
 

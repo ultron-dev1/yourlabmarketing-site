@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import Wellmark from "../components/Wellmark.astro";
 
 const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
+const EMAIL = "hello@yourlabmarketing.com";
 
 const principles = [
   {
@@ -61,9 +62,10 @@ const principles = [
           in-house.
         </p>
         <p class="measure-sm story-p">
-          Your Lab Marketing is run by Anthony Courey. The studio is
-          deliberately small: every post is read by a person before your lab
-          ever sees it.
+          Your Lab Marketing is run by Anthony Courey. We're AI-native: AI
+          drafts the first pass of every post from your source material. The
+          studio is deliberately small, so a person reviews and edits that
+          draft before your lab ever sees it.
         </p>
       </div>
 
@@ -99,16 +101,16 @@ const principles = [
   <section class="section about-cta on-navy">
     <div class="wrap about-cta-inner">
       <div class="reveal">
-        <span class="eyebrow">Get started</span>
-        <h2>See if we're a fit.</h2>
+        <span class="eyebrow">Ready when you are</span>
+        <h2>See if we're the right fit.</h2>
         <p class="lede measure">
           A short call, no deck. You describe the work and how much of it is
           getting out; we tell you plainly whether we're the right fit.
         </p>
       </div>
       <div class="about-cta-actions reveal" style="--delay:100ms">
-        <a class="btn btn-primary" href="/contact">
-          Get in touch
+        <a class="btn btn-primary" href={`mailto:${EMAIL}`}>
+          Start a conversation
           <span class="arrow" aria-hidden="true">→</span>
         </a>
         <a class="btn btn-ghost" href={PORTAL_URL} rel="noopener">

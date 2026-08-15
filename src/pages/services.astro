@@ -20,6 +20,7 @@ const platforms = [
 ];
 
 const included = [
+  "AI drafts from your source material, a person on our team edits every post",
   "Posts written for each platform's register, LinkedIn to X to Instagram",
   "Every draft approved by your lab in the client portal before it goes out",
   "One voice across accounts, even as who's writing changes",
@@ -47,6 +48,7 @@ const webSteps = [
 ];
 
 const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
+const EMAIL = "hello@yourlabmarketing.com";
 ---
 
 <Base
@@ -91,8 +93,12 @@ const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
         }
       </div>
 
-      <ul class="included reveal" style="--delay:240ms">
-        {included.map((line) => <li>{line}</li>)}
+      <ul class="included">
+        {
+          included.map((line, i) => (
+            <li class="reveal" style={`--delay:${i * 60}ms`}>{line}</li>
+          ))
+        }
       </ul>
     </div>
   </section>
@@ -143,7 +149,7 @@ const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
   <section class="section services-cta on-navy">
     <div class="wrap services-cta-inner">
       <div class="reveal">
-        <span class="eyebrow">Get started</span>
+        <span class="eyebrow">Ready when you are</span>
         <h2>Not sure which one you need?</h2>
         <p class="lede measure">
           Most labs start with one service and add the other later. Tell us
@@ -151,8 +157,8 @@ const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
         </p>
       </div>
       <div class="services-cta-actions reveal" style="--delay:100ms">
-        <a class="btn btn-primary" href="/contact">
-          Get in touch
+        <a class="btn btn-primary" href={`mailto:${EMAIL}`}>
+          Start a conversation
           <span class="arrow" aria-hidden="true">→</span>
         </a>
         <a class="btn btn-ghost" href={PORTAL_URL} rel="noopener">
