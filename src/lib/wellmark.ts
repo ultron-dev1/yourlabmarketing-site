@@ -2,7 +2,7 @@
  * The identity system, shared with the client portal.
  *
  * A 5×7 dot matrix read out of a microplate. Filled wells spell letters, so
- * the mark is not a fixed drawing — it is a rule. Below ~64px the 5×7 is
+ * the mark is not a fixed drawing. It is a rule. Below ~64px the 5×7 is
  * illegible, so a coarse 3×5 cut of the same alphabet takes over.
  *
  * Kept in sync with YourLabPortal/src/lib/wellmark.ts.
@@ -115,7 +115,7 @@ export function wellsFor(text: string, compact = false): Layout {
         wells.push({ col: offset + col, row, filled: glyph[row][col] === "1" });
       }
     }
-    // The separator column is still a well on the plate — just empty.
+    // The separator column is still a well on the plate, just empty.
     if (i < letters.length - 1) {
       for (let row = 0; row < rows; row++) {
         wells.push({ col: offset + glyphCols, row, filled: false });

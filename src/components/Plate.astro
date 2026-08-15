@@ -4,7 +4,7 @@
  * is projected onto. It shimmers like a plate being read, then the wells
  * resolve outward into the "YLM" monogram and hold, then dissolve back.
  *
- * The plate also responds to the pointer — wells near the cursor lift.
+ * The plate also responds to the pointer: wells near the cursor lift.
  * Both behaviours are dropped entirely under prefers-reduced-motion, which
  * leaves the monogram showing statically.
  */
@@ -28,7 +28,7 @@ const word = wordOnGrid("YLM", COLS, ROWS);
 const cx = (c: number) => x0 + c * PITCH + PITCH / 2;
 const cy = (r: number) => y0 + r * PITCH + PITCH / 2;
 
-// Radial distance from the plate centre, normalised — drives the reveal wave.
+// Radial distance from the plate centre, normalised. Drives the reveal wave.
 const midC = (COLS - 1) / 2;
 const midR = (ROWS - 1) / 2;
 const maxD = Math.hypot(midC, midR);
@@ -333,7 +333,7 @@ const rowLabels = "ABCDEFGH".split("");
     opacity: 0.55;
   }
 
-  /* pointer proximity — immediate, never on the cycle's delay */
+  /* pointer proximity: immediate, never on the cycle's delay */
   .well.is-near .well-ring {
     stroke: #8fe3d8;
     opacity: 0.9;

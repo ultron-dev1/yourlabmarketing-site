@@ -6,26 +6,20 @@ import Showcase from "../components/Showcase.astro";
 const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
 const EMAIL = "hello@yourlabmarketing.com";
 
-const services = [
+const pillars = [
   {
     n: "01",
-    title: "Papers into posts",
-    body: "We read the manuscript — the methods and the limitations, not just the abstract — and write posts that hold up if a reviewer reads them. Your caveats survive the edit.",
+    title: "Social media management",
+    body: "We read the manuscript, the methods and the limitations, not just the abstract, and write posts that hold up if a reviewer reads them. Written per platform, not one caption pasted three times.",
+    list: ["LinkedIn", "X", "Instagram"],
+    href: "/services#social",
   },
   {
     n: "02",
-    title: "A calendar that isn't only papers",
-    body: "Publications are lumpy. In between we cover the things labs forget are interesting: a new instrument, a conference talk, a defence, a hiring push, a failed run worth explaining.",
-  },
-  {
-    n: "03",
-    title: "Written per platform",
-    body: "LinkedIn wants a considered paragraph. X wants a thread. Instagram wants a figure worth looking at. The same result, written three ways, in each platform's register.",
-  },
-  {
-    n: "04",
-    title: "Approval that takes minutes",
-    body: "No email threads, no tracked-changes documents. Drafts land in your portal, you approve or ask for a change, and nothing goes out that a PI hasn't seen.",
+    title: "Website design and updates",
+    body: "A full redesign when the site is slow or dated, or ongoing updates so it stops looking like it was last touched two grant cycles ago. You approve the direction before anything gets built.",
+    list: ["Redesign", "Ongoing updates"],
+    href: "/services#web",
   },
 ];
 
@@ -43,7 +37,7 @@ const steps = [
   {
     n: "03",
     title: "You approve",
-    body: "One screen shows every draft as it will actually appear. Approve it, or ask for a change in a sentence.",
+    body: "One screen shows every draft as it will appear on the feed. Approve it, or ask for a change in a sentence.",
   },
   {
     n: "04",
@@ -62,7 +56,7 @@ const pains = [
 ---
 
 <Base
-  title="Your Lab Marketing — social media for research labs"
+  title="Your Lab Marketing | Social media for research labs"
   description="We turn papers, preprints and lab life into social content written by people who read the methods section. Drafted for you, approved by you, published on schedule."
 >
   <!-- ================= HERO ================= -->
@@ -78,8 +72,7 @@ const pains = [
         <p class="lede measure reveal" style="--delay:140ms">
           Your lab produces work that deserves an audience and gets a citation
           count instead. We turn papers, preprints and everyday lab life into
-          social content written by people who actually read the methods
-          section.
+          social content written by people who read the methods section.
         </p>
         <div class="hero-cta reveal" style="--delay:220ms">
           <a class="btn btn-primary" href="/contact">
@@ -90,7 +83,7 @@ const pains = [
         </div>
         <ul class="hero-notes reveal" style="--delay:300ms">
           <li>Written from the paper, not the press release</li>
-          <li>Nothing publishes without your approval</li>
+          <li>You approve every post before it goes out</li>
         </ul>
       </div>
 
@@ -107,9 +100,9 @@ const pains = [
         <span class="eyebrow">The gap</span>
         <h2>Good science is not self-publicising.</h2>
         <p class="lede measure-sm">
-          Nobody in a lab was hired to run a content calendar, and it shows —
-          not because the work isn't interesting, but because writing about it
-          well is a separate job that keeps losing to the actual job.
+          Nobody in a lab was hired to run a content calendar. The work is
+          interesting. Writing about it well is a separate job, and it keeps
+          losing to the actual job.
         </p>
       </div>
 
@@ -131,7 +124,7 @@ const pains = [
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow">What we do</span>
-        <h2>A studio that speaks lab.</h2>
+        <h2>Two services, one studio.</h2>
         <p class="lede measure">
           We work the way a good collaborator does: read the material, ask when
           something is ambiguous, and never oversell a result you'd have to walk
@@ -139,14 +132,21 @@ const pains = [
         </p>
       </div>
 
-      <div class="svc-grid">
+      <div class="pillar-grid">
         {
-          services.map((s, i) => (
-            <article class="svc card reveal" style={`--delay:${i * 80}ms`}>
-              <span class="svc-n">{s.n}</span>
-              <h3>{s.title}</h3>
-              <p>{s.body}</p>
-            </article>
+          pillars.map((p, i) => (
+            <a class="pillar-tile card reveal" style={`--delay:${i * 100}ms`} href={p.href}>
+              <span class="pillar-n">{p.n}</span>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+              <ul class="pillar-list">
+                {p.list.map((item) => <li>{item}</li>)}
+              </ul>
+              <span class="pillar-link">
+                See this service
+                <span class="arrow" aria-hidden="true">→</span>
+              </span>
+            </a>
           ))
         }
       </div>
@@ -193,7 +193,7 @@ const pains = [
           <li>Posts shown as real platform previews, not rows in a table</li>
           <li>Approve, or ask for a change in one sentence</li>
           <li>Request a post, or upload an image, whenever it occurs to you</li>
-          <li>Nothing is visible to anyone outside your lab</li>
+          <li>Only your lab can see it</li>
         </ul>
         <a class="link-arrow" href={PORTAL_URL} rel="noopener">
           Visit the client portal
@@ -214,7 +214,7 @@ const pains = [
               <span class="mock-status">
                 <span class="mock-pulse"></span>Needs approval
               </span>
-              <p>Sleep fragmentation paper — LinkedIn</p>
+              <p>Sleep fragmentation paper · LinkedIn</p>
               <div class="mock-actions">
                 <span class="mock-btn mock-btn-go">Approve</span>
                 <span class="mock-btn">Ask for changes</span>
@@ -222,15 +222,15 @@ const pains = [
             </div>
             <div class="mock-row">
               <span class="mock-status is-ok">Approved</span>
-              <p>Ripple-density figure — Instagram</p>
+              <p>Ripple-density figure · Instagram</p>
             </div>
             <div class="mock-row">
               <span class="mock-status is-sched">Scheduled</span>
-              <p>Conference talk announcement — X</p>
+              <p>Conference talk announcement · X</p>
             </div>
             <div class="mock-row">
               <span class="mock-status is-ok">Approved</span>
-              <p>PhD position open — LinkedIn</p>
+              <p>PhD position open · LinkedIn</p>
             </div>
           </div>
         </div>
@@ -246,7 +246,7 @@ const pains = [
         <h2>Tell us what your lab is working on.</h2>
         <p class="lede measure">
           A short call, no deck. You describe the work and how much of it is
-          getting out; we tell you honestly whether we're the right fit and what
+          getting out; we tell you plainly whether we're the right fit and what
           it would cost.
         </p>
       </div>
@@ -404,25 +404,27 @@ const pains = [
     border-block: 1px solid var(--line);
   }
 
-  .svc-grid {
+  .pillar-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
     gap: 1.25rem;
   }
 
-  .svc {
-    padding: 1.75rem 1.5rem;
+  .pillar-tile {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.75rem, 3vw, 2.25rem);
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s,
       border-color 0.3s;
   }
 
-  .svc:hover {
+  .pillar-tile:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow);
     border-color: var(--accent-line);
   }
 
-  .svc-n {
+  .pillar-n {
     display: block;
     font-size: 0.6875rem;
     font-weight: 600;
@@ -431,14 +433,52 @@ const pains = [
     margin-bottom: 1.5rem;
   }
 
-  .svc h3 {
+  .pillar-tile h3 {
     margin-bottom: 0.75rem;
   }
 
-  .svc p {
+  .pillar-tile p {
     font-size: 0.9375rem;
     color: var(--ink-2);
     line-height: 1.65;
+  }
+
+  .pillar-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.5rem 0 0;
+  }
+
+  .pillar-list li {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--accent-ink);
+    background: var(--accent-tint);
+    border: 1px solid var(--accent-line);
+    border-radius: 999px;
+    padding: 0.3125rem 0.75rem;
+  }
+
+  .pillar-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  .pillar-link .arrow {
+    transition: transform 0.2s;
+  }
+
+  .pillar-tile:hover .pillar-link .arrow {
+    transform: translateX(3px);
   }
 
   /* ================= PROCESS ================= */
@@ -713,7 +753,7 @@ const pains = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .svc:hover {
+    .pillar-tile:hover {
       transform: none;
     }
 

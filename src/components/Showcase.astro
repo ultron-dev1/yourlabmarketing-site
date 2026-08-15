@@ -1,7 +1,7 @@
 ---
 /**
  * Paper in, posts out. The previews carry real platform chrome because that
- * is the thing people react to — a plain list of captions reads as a text
+ * is the thing people react to: a plain list of captions reads as a text
  * file, not as something that will appear on their feed.
  *
  * The lab here is invented and labelled as a sample; nothing on this page
@@ -16,7 +16,7 @@ const posts = [
   {
     id: "linkedin",
     name: "LinkedIn",
-    body: `Sleep isn't downtime for memory — it's the shift when the work gets done.
+    body: `Sleep isn't downtime for memory. It's the shift when the work gets done.
 
 Our new paper shows that fragmenting sleep in mice, without shortening it, still measurably weakens how the hippocampus consolidates what was learned that day. Total hours slept looked normal. The consolidation did not.
 
@@ -31,7 +31,7 @@ Full paper linked below. Happy to talk methods with anyone working on this.`,
     name: "X",
     body: `New from the lab 🧵
 
-We broke sleep into fragments without shortening it. Mice slept the same number of hours — and still consolidated memory worse.
+We broke sleep into fragments without shortening it. Mice slept the same number of hours and still consolidated memory worse.
 
 Duration was never the whole story. Continuity is doing real work.
 
@@ -44,7 +44,7 @@ Duration was never the whole story. Continuity is doing real work.
     name: "Instagram",
     body: `Same hours of sleep. Worse memory. 🧠
 
-Our latest paper found that interrupted sleep weakens memory consolidation even when total sleep time stays the same — which means counting hours may be missing the point.
+Our latest paper found that interrupted sleep weakens memory consolidation even when total sleep time stays the same, which means counting hours may be missing the point.
 
 Swipe for the three figures that convinced us, and the one that didn't.`,
     tags: "#neuroscience #phdlife #inthelab #sleep",
@@ -60,7 +60,7 @@ Swipe for the three figures that convinced us, and the one that didn't.`,
       <h2>One paper. Every feed it belongs on.</h2>
       <p class="lede measure">
         You send the manuscript. We return posts written for each platform's
-        register — not the same paragraph pasted four times — and you approve
+        register, not the same paragraph pasted four times, and you approve
         them in one place.
       </p>
     </div>
@@ -155,7 +155,7 @@ Swipe for the three figures that convinced us, and the one that didn't.`,
                         <span class="fig-bar" style="--h:88%" />
                         <span class="fig-bar" style="--h:71%" />
                       </div>
-                      <span class="fig-caption">Fig. 3 — ripple density</span>
+                      <span class="fig-caption">Fig. 3: ripple density</span>
                     </div>
                   )}
 
@@ -504,6 +504,7 @@ Swipe for the three figures that convinced us, and the one that didn't.`,
     border-top: 1px solid var(--line);
     font-size: 0.75rem;
     color: var(--muted);
+    font-variant-numeric: tabular-nums;
   }
 
   /* X reads tighter and sans-heavier than LinkedIn */

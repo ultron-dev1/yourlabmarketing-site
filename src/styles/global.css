@@ -1,5 +1,5 @@
 /* ============================================================
-   Your Lab Marketing — marketing site
+   Your Lab Marketing: marketing site
    Design language inherited from the client portal:
    premium & scientific. Deep navy ink, cool paper ground,
    serif headlines, hairline structure, restrained depth.
@@ -21,14 +21,14 @@
   --line: #e4e9ef;
   --line-2: #eef2f6;
 
-  /* Navy — deep chrome */
+  /* Navy: deep chrome */
   --navy: #0b2036;
   --navy-2: #12304c;
   --navy-line: #1e3c5a;
   --navy-ink: #a8bacd;
   --navy-ink-2: #6f8399;
 
-  /* Accent — deep teal */
+  /* Accent: deep teal */
   --accent: #0f6e68;
   --accent-ink: #0b5852;
   --accent-lift: #14867e;
@@ -140,7 +140,7 @@ section[id] {
   scroll-margin-top: 90px;
 }
 
-/* Eyebrow — small caps label above a headline */
+/* Eyebrow: small caps label above a headline */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -237,7 +237,7 @@ h3,
 }
 
 .btn:active {
-  transform: translateY(0);
+  transform: scale(0.97);
 }
 
 .btn-primary {
