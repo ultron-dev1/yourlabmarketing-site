@@ -7,22 +7,18 @@ const EMAIL = "hello@yourlabmarketing.com";
 
 const principles = [
   {
-    n: "01",
     title: "Read the paper, not the abstract",
     body: "The methods and the limitations are where a post goes wrong if nobody reads them. We read them, every time, before we write a word.",
   },
   {
-    n: "02",
     title: "Nothing overclaims",
     body: "A result gets described the way the paper describes it. If the finding is preliminary, the post says preliminary. Your name is on it, not ours.",
   },
   {
-    n: "03",
     title: "Written for the platform, not translated",
     body: "A LinkedIn post and an X thread are different pieces of writing, not one caption cut three ways. Each gets written for how people read there.",
   },
   {
-    n: "04",
     title: "You see it before anyone else does",
     body: "Every draft goes through your portal first, and someone from your lab signs off before it reaches a feed.",
   },
@@ -37,7 +33,6 @@ const principles = [
   <section class="section about-hero">
     <div class="wrap about-hero-inner">
       <div class="reveal">
-        <span class="eyebrow">About</span>
         <h1>A studio built for one kind of client.</h1>
         <p class="lede measure">
           We only work with research labs, because that work deserves a
@@ -53,7 +48,6 @@ const principles = [
   <section class="section story">
     <div class="wrap story-grid">
       <div class="story-copy reveal">
-        <span class="eyebrow">Why this exists</span>
         <h2>Good writing about science is a specific skill.</h2>
         <p class="lede measure-sm">
           Writing about science well means acting like a careful co-author
@@ -79,7 +73,6 @@ const principles = [
   <section class="section principles">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow">How we work</span>
         <h2>Four things we don't compromise on.</h2>
       </div>
 
@@ -87,7 +80,6 @@ const principles = [
         {
           principles.map((p, i) => (
             <article class="pr card reveal" style={`--delay:${i * 80}ms`}>
-              <span class="pr-n">{p.n}</span>
               <h3>{p.title}</h3>
               <p>{p.body}</p>
             </article>
@@ -101,7 +93,6 @@ const principles = [
   <section class="section about-cta on-navy">
     <div class="wrap about-cta-inner">
       <div class="reveal">
-        <span class="eyebrow">Ready when you are</span>
         <h2>See if we're the right fit.</h2>
         <p class="lede measure">
           A short call, no deck. You describe the work and how much of it is
@@ -190,15 +181,6 @@ const principles = [
     transform: translateY(-3px);
     box-shadow: var(--shadow);
     border-color: var(--accent-line);
-  }
-
-  .pr-n {
-    display: block;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
   }
 
   .pr h3 {

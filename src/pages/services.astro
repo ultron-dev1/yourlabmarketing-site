@@ -29,22 +29,20 @@ const included = [
 
 const webWork = [
   {
-    n: "01",
     title: "Redesign",
     body: "A full rebuild when the current site is slow, dated, or doesn't say what the lab actually does. Same content structure you already have, or a new one if it's not working. You approve the direction before anything gets built.",
   },
   {
-    n: "02",
     title: "Updates",
     body: "New pages, a refreshed publications list, updated team photos, a new grant announcement. None of that needs a full rebuild. It needs someone touching the site regularly instead of leaving it alone for two grant cycles.",
   },
 ];
 
 const webSteps = [
-  { n: "01", label: "Audit", body: "We look at the current site and say plainly what's working and what isn't." },
-  { n: "02", label: "Direction", body: "A proposed structure and look, before any real building starts." },
-  { n: "03", label: "Build", body: "The site gets built. You see progress, not just a final reveal." },
-  { n: "04", label: "Launch", body: "It goes live on your domain, and you get shown how to ask for changes later." },
+  { label: "Audit", body: "We look at the current site and say plainly what's working and what isn't." },
+  { label: "Direction", body: "A proposed structure and look, before any real building starts." },
+  { label: "Build", body: "The site gets built. You see progress, not just a final reveal." },
+  { label: "Launch", body: "It goes live on your domain, and you get shown how to ask for changes later." },
 ];
 
 const PORTAL_URL = "https://your-lab-marketing-portal.vercel.app";
@@ -59,7 +57,6 @@ const EMAIL = "hello@yourlabmarketing.com";
   <section class="section services-hero">
     <div class="wrap">
       <div class="reveal">
-        <span class="eyebrow">Services</span>
         <h1>Social media and websites, built for labs.</h1>
         <p class="lede measure">
           Two services under one studio, so your feed and your site finally
@@ -73,7 +70,6 @@ const EMAIL = "hello@yourlabmarketing.com";
   <section class="section pillar" id="social">
     <div class="wrap">
       <div class="pillar-head reveal">
-        <span class="eyebrow">Service 01</span>
         <h2>Social media management</h2>
         <p class="lede measure-sm">
           We read the paper, write the post, and hand you the approve button.
@@ -107,7 +103,6 @@ const EMAIL = "hello@yourlabmarketing.com";
   <section class="section pillar pillar-alt" id="web">
     <div class="wrap">
       <div class="pillar-head reveal">
-        <span class="eyebrow">Service 02</span>
         <h2>Website design and updates</h2>
         <p class="lede measure-sm">
           A site is the one thing a prospective student, funder, or
@@ -120,7 +115,6 @@ const EMAIL = "hello@yourlabmarketing.com";
         {
           webWork.map((w, i) => (
             <article class="web-card card reveal" style={`--delay:${i * 90}ms`}>
-              <span class="web-n">{w.n}</span>
               <h3>{w.title}</h3>
               <p>{w.body}</p>
             </article>
@@ -134,7 +128,6 @@ const EMAIL = "hello@yourlabmarketing.com";
           {
             webSteps.map((s) => (
               <li>
-                <span class="web-step-n">{s.n}</span>
                 <span class="web-step-label">{s.label}</span>
                 <span class="web-step-body">{s.body}</span>
               </li>
@@ -149,7 +142,6 @@ const EMAIL = "hello@yourlabmarketing.com";
   <section class="section services-cta on-navy">
     <div class="wrap services-cta-inner">
       <div class="reveal">
-        <span class="eyebrow">Ready when you are</span>
         <h2>Not sure which one you need?</h2>
         <p class="lede measure">
           Most labs start with one service and add the other later. Tell us
@@ -295,15 +287,6 @@ const EMAIL = "hello@yourlabmarketing.com";
     border-color: var(--accent-line);
   }
 
-  .web-n {
-    display: block;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-  }
-
   .web-card h3 {
     margin-bottom: 0.75rem;
   }
@@ -334,13 +317,6 @@ const EMAIL = "hello@yourlabmarketing.com";
     gap: 0.5rem;
     padding-top: 1.25rem;
     border-top: 1px solid var(--line);
-  }
-
-  .web-step-n {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    color: var(--muted-2);
   }
 
   .web-step-label {

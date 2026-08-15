@@ -7,19 +7,19 @@
 
 :root {
   /* Ground & surface */
-  --bg: #eef1f6;
+  --bg: #e6eaf1;
   --surface: #ffffff;
-  --surface-2: #e4e9f0;
+  --surface-2: #d2dae6;
 
   /* Ink */
   --ink: #0c1e33;
   --ink-2: #33465c;
-  --muted: #64748b;
+  --muted: #59677c;
   --muted-2: #94a3b8;
 
   /* Structure */
-  --line: #d7dee8;
-  --line-2: #e2e8f0;
+  --line: #c3cddc;
+  --line-2: #d6dee8;
 
   /* Navy: deep chrome */
   --navy: #0b2036;
