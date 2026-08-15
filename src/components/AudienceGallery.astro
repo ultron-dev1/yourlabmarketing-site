@@ -1,0 +1,129 @@
+---
+/**
+ * Real lab photography, not staged stock-photo cheese, to put a face on
+ * "research labs" as an audience. All three images are Unsplash License
+ * (free for commercial use, no attribution required):
+ *   - pipette.jpg    Nathan Rimoux, https://unsplash.com/photos/lgkareDEqKg
+ *   - bench.jpg      Adam Bezer,    https://unsplash.com/photos/z_w9KovAwYk
+ *   - researcher.jpg Toon Lambrechts, https://unsplash.com/photos/oO2lWdQfvms
+ */
+---
+
+<section class="section gallery">
+  <div class="wrap">
+    <div class="gallery-head reveal">
+      <span class="eyebrow">Who this is for</span>
+      <h2>Wet lab or dry lab, this is built around your bench.</h2>
+    </div>
+
+    <div class="gallery-grid">
+      <figure class="gallery-item gallery-tall reveal" style="--delay:0ms">
+        <img
+          src="/images/pipette.jpg"
+          alt="A researcher using a micropipette to fill sample tubes at a lab bench"
+          loading="lazy"
+          width="1600"
+          height="2400"
+        />
+      </figure>
+      <figure class="gallery-item reveal" style="--delay:90ms">
+        <img
+          src="/images/bench.jpg"
+          alt="A laboratory bench lined with reagent bottles and sample racks"
+          loading="lazy"
+          width="1600"
+          height="1067"
+        />
+      </figure>
+      <figure class="gallery-item reveal" style="--delay:180ms">
+        <img
+          src="/images/researcher.jpg"
+          alt="A researcher in a cleanroom suit operating lab instrumentation"
+          loading="lazy"
+          width="1600"
+          height="1067"
+        />
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery {
+    border-top: 1px solid var(--line);
+  }
+
+  .gallery-head {
+    max-width: 40rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .gallery-head h2 {
+    margin-bottom: 0;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.25rem;
+    height: clamp(420px, 55vw, 560px);
+  }
+
+  .gallery-tall {
+    grid-row: 1 / 3;
+  }
+
+  .gallery-item {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    outline: 1px solid rgba(12, 30, 51, 0.08);
+    outline-offset: -1px;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.02);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.08);
+  }
+
+  @media (max-width: 760px) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      height: auto;
+    }
+
+    .gallery-tall {
+      grid-row: auto;
+    }
+
+    .gallery-item {
+      aspect-ratio: 4 / 3;
+    }
+
+    .gallery-tall {
+      aspect-ratio: 4 / 5;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-item img {
+      transition: none;
+    }
+
+    .gallery-item:hover img {
+      transform: none;
+    }
+  }
+</style>
