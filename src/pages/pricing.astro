@@ -1,0 +1,327 @@
+---
+import Base from "../layouts/Base.astro";
+
+const included = [
+  "LinkedIn, X, and Instagram, managed together",
+  "Drafted by our newest AI model, edited line by line by a person on our team",
+  "Every draft approved by your lab in the client portal before it goes out",
+  "A monthly digest of what went out and how it did",
+  "Website updates included — new pages, publication list changes, photo swaps, small fixes",
+];
+
+const EMAIL = "hello@yourlabmarketing.com";
+const SUBJECT = "Application";
+const applyHref = `mailto:${EMAIL}?subject=${encodeURIComponent(SUBJECT)}`;
+---
+
+<Base
+  title="Pricing | Your Lab Marketing"
+  description="A flat monthly plan for research labs: social media management and website updates, with an optional add-on for a full website redesign."
+>
+  <!-- ================= HERO ================= -->
+  <section class="section pricing-hero">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">By application</span>
+        <h1>We work with a short list of labs.</h1>
+        <p class="lede measure">
+          One flat monthly price. Apply and we'll follow up if it's a fit.
+        </p>
+        <a class="link-arrow reveal" href={applyHref} style="--delay:80ms">
+          Apply
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PLAN ================= -->
+  <section class="section pricing-plans">
+    <div class="wrap">
+      <div class="plan-layout">
+        <article class="plan card reveal">
+          <h2 class="plan-name">Social + Website</h2>
+          <p class="plan-price">
+            $400{" "}
+            <span class="plan-period">CAD/mo</span>
+          </p>
+          <p class="plan-note">
+            Three platforms managed, and a site that stays current.
+          </p>
+          <ul class="plan-features">
+            {included.map((f) => (
+              <li>{f}</li>
+            ))}
+          </ul>
+          <a class="btn btn-primary plan-cta" href={applyHref}>
+            Apply
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </article>
+
+        <aside class="addon card reveal" style="--delay:90ms">
+          <span class="addon-label">Add-on</span>
+          <h3 class="addon-name">Full website redesign</h3>
+          <p class="plan-price addon-price">
+            +$150{" "}
+            <span class="plan-period">CAD/mo</span>
+          </p>
+          <p class="addon-note">
+            For a lab whose site needs a full rebuild, not just updates.
+            Added to your plan, one monthly invoice.
+          </p>
+        </aside>
+      </div>
+
+      <p class="pricing-fineprint reveal" style="--delay:180ms">
+        Applying doesn't guarantee a spot. Prices in CAD, billed monthly.
+        Month to month, cancel any time by email.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= MID CTA ================= -->
+  <section class="section pricing-mid">
+    <div class="wrap pricing-mid-inner reveal">
+      <div class="pricing-mid-copy">
+        <h2>Not an open door.</h2>
+        <p class="lede measure-sm">
+          We choose labs directly, and keep the list short.
+        </p>
+      </div>
+      <a class="btn btn-primary pricing-mid-cta" href={applyHref}>
+        Apply
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="section pricing-cta on-navy">
+    <div class="wrap pricing-cta-inner">
+      <div class="reveal">
+        <span class="eyebrow">Still deciding?</span>
+        <h2>Tell us about your lab first.</h2>
+        <p class="lede measure">
+          Send a note about where your lab's online presence stands today,
+          and we'll say plainly whether it's a fit.
+        </p>
+      </div>
+      <div class="pricing-cta-actions reveal" style="--delay:100ms">
+        <a class="btn btn-primary" href={applyHref}>
+          Apply
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn-ghost" href={`mailto:${EMAIL}`}>
+          Email us directly
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ================= HERO ================= */
+
+  .pricing-hero {
+    padding-block: clamp(3rem, 7vw, 6rem) clamp(2rem, 5vw, 3rem);
+  }
+
+  .pricing-hero h1 {
+    max-width: 20ch;
+    margin-block: 0.75rem 1.5rem;
+  }
+
+  .pricing-hero .link-arrow {
+    display: inline-flex;
+    margin-top: 0.5rem;
+  }
+
+  /* ================= PLAN ================= */
+
+  .pricing-plans {
+    padding-block: 0 clamp(4rem, 9vw, 7rem);
+  }
+
+  .plan-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    max-width: 56rem;
+    align-items: start;
+  }
+
+  .plan {
+    padding: 2.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .plan-name {
+    font-size: 1.375rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .plan-price {
+    font-family: var(--serif);
+    font-size: clamp(2.25rem, 4vw, 2.75rem);
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+
+  .plan-period {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  .plan-note {
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+  }
+
+  .plan-features li {
+    position: relative;
+    padding-left: 1.75rem;
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  .plan-features li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 10px;
+    height: 6px;
+    border-left: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+    transform: rotate(-45deg);
+  }
+
+  .plan-cta {
+    align-self: flex-start;
+  }
+
+  /* ---------- add-on ---------- */
+
+  .addon {
+    padding: 1.75rem 1.5rem;
+    background: var(--surface-2);
+    box-shadow: none;
+  }
+
+  .addon-label {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .addon-name {
+    font-size: 1.0625rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .addon-price {
+    font-size: clamp(1.5rem, 3vw, 1.875rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .addon-note {
+    font-size: 0.875rem;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  .pricing-fineprint {
+    margin-top: 2rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+    max-width: 46rem;
+  }
+
+  @media (max-width: 720px) {
+    .plan-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ================= MID CTA ================= */
+
+  .pricing-mid {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+
+  .pricing-mid-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .pricing-mid-copy {
+    max-width: 40rem;
+  }
+
+  .pricing-mid-copy h2 {
+    margin-bottom: 0.75rem;
+  }
+
+  .pricing-mid-cta {
+    flex: none;
+  }
+
+  /* ================= CTA ================= */
+
+  .pricing-cta-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: end;
+  }
+
+  .pricing-cta-inner .eyebrow {
+    margin-bottom: 0.75rem;
+  }
+
+  .pricing-cta-inner h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .pricing-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 900px) {
+    .pricing-cta-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .pricing-cta-actions {
+      justify-content: flex-start;
+    }
+  }
+</style>
