@@ -55,13 +55,29 @@ const EMAIL = "hello@yourlabmarketing.com";
 >
   <!-- ================= HERO ================= -->
   <section class="section services-hero">
-    <div class="wrap">
-      <div class="reveal">
+    <div class="wrap services-hero-inner">
+      <div class="services-hero-copy reveal">
         <h1>Social media and websites, built for labs.</h1>
         <p class="lede measure">
           Two services under one studio, so your feed and your site finally
           sound like the same lab. Start with one, or run both together.
         </p>
+        <div class="services-hero-cta">
+          <a class="btn btn-primary" href={`mailto:${EMAIL}`}>
+            Start a conversation
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn-ghost" href="#social">See what's included</a>
+        </div>
+      </div>
+
+      <div class="services-hero-visual reveal" style="--delay:150ms">
+        <img
+          src="/images/researcher.jpg"
+          alt="A researcher in a cleanroom suit operating lab instrumentation"
+          width="1600"
+          height="1067"
+        />
       </div>
     </div>
   </section>
@@ -165,12 +181,54 @@ const EMAIL = "hello@yourlabmarketing.com";
   /* ================= HERO ================= */
 
   .services-hero {
-    padding-block: clamp(3rem, 7vw, 5.5rem) clamp(2rem, 4vw, 3rem);
+    padding-block: clamp(3rem, 7vw, 6rem) clamp(4rem, 9vw, 7rem);
   }
 
-  .services-hero h1 {
-    max-width: 22ch;
+  .services-hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .services-hero-copy h1 {
+    max-width: 18ch;
     margin-block: 0 1.5rem;
+  }
+
+  .services-hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .services-hero-visual {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    outline: 1px solid rgba(12, 30, 51, 0.08);
+    outline-offset: -1px;
+    aspect-ratio: 4 / 5;
+  }
+
+  .services-hero-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 900px) {
+    .services-hero-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .services-hero-visual {
+      order: -1;
+      aspect-ratio: 16 / 10;
+      max-width: 560px;
+    }
   }
 
   /* ================= PILLAR (shared) ================= */
