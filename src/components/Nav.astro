@@ -180,7 +180,7 @@ const EMAIL = "hello@yourlabmarketing.com";
     display: none;
     flex-direction: column;
     justify-content: center;
-    gap: 5px;
+    gap: 6px;
     width: 40px;
     height: 40px;
     padding: 0 8px;
@@ -195,17 +195,18 @@ const EMAIL = "hello@yourlabmarketing.com";
 
   .nav-toggle span {
     display: block;
-    height: 1.5px;
+    height: 2px;
+    border-radius: 1px;
     background: var(--ink);
     transition: transform 0.25s, opacity 0.25s;
   }
 
   .nav.is-open .nav-toggle span:first-child {
-    transform: translateY(3.25px) rotate(45deg);
+    transform: translateY(4px) rotate(45deg);
   }
 
   .nav.is-open .nav-toggle span:last-child {
-    transform: translateY(-3.25px) rotate(-45deg);
+    transform: translateY(-4px) rotate(-45deg);
   }
 
   .nav-mobile {
