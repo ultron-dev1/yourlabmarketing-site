@@ -6,6 +6,8 @@
    ============================================================ */
 
 :root {
+  color-scheme: light;
+
   /* Ground & surface */
   --bg: #e6eaf1;
   --surface: #ffffff;

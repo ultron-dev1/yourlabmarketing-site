@@ -80,22 +80,6 @@ const applyHref = `mailto:${EMAIL}?subject=${encodeURIComponent(SUBJECT)}`;
     </div>
   </section>
 
-  <!-- ================= MID CTA ================= -->
-  <section class="section pricing-mid">
-    <div class="wrap pricing-mid-inner reveal">
-      <div class="pricing-mid-copy">
-        <h2>Not an open door.</h2>
-        <p class="lede measure-sm">
-          We choose labs directly, and keep the list short.
-        </p>
-      </div>
-      <a class="btn btn-primary pricing-mid-cta" href={applyHref}>
-        Apply
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
-  </section>
-
   <!-- ================= CTA ================= -->
   <section class="section pricing-cta on-navy">
     <div class="wrap pricing-cta-inner">
@@ -260,35 +244,6 @@ const applyHref = `mailto:${EMAIL}?subject=${encodeURIComponent(SUBJECT)}`;
     .plan-layout {
       grid-template-columns: 1fr;
     }
-  }
-
-  /* ================= MID CTA ================= */
-
-  .pricing-mid {
-    padding-block: clamp(2.5rem, 5vw, 4rem);
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    background: var(--surface-2);
-  }
-
-  .pricing-mid-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-  }
-
-  .pricing-mid-copy {
-    max-width: 40rem;
-  }
-
-  .pricing-mid-copy h2 {
-    margin-bottom: 0.75rem;
-  }
-
-  .pricing-mid-cta {
-    flex: none;
   }
 
   /* ================= CTA ================= */
